@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::table('matches', function (Blueprint $table) {
             $table->index('id_game')->change();
             $table->index('id_user')->change();
-            $table->foreign('id_game')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('id_user')->references('id')->on('games')->onDelete('cascade');
+            $table->foreign('id_game')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_user')->references('id')->on('games')->onDelete('cascade')->onUpdate('cascade');
         });
 
     }
