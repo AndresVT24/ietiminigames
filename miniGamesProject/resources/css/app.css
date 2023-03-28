@@ -79,8 +79,23 @@
     flex-direction: column;
 }
 
-.divForm form .divDadesForm button{
+.divForm form .divDadesForm .buttonLogin{
+    margin: 20px 0 20px 0;
+    padding: 5px 20px 5px 20px;
+}
+
+.divForm form a{
     display: flex;
-    align-content: center;
-    margin-top: 20px;
+    justify-content: end;
+    margin-right: 5px;
+}
+
+.divForm form .pRegister{
+    display: flex;
+    justify-content: center;
+    margin-right: 5px;
+}
+
+.divForm form .buttonRegister{
+    padding: 5px 20px 5px 20px;
 }

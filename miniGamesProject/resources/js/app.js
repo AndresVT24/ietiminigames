@@ -1,5 +1,5 @@
 import './bootstrap';
 import { createApp } from "vue";
-import App from "../src/App.vue"
+import App from "../src/login.vue";
 
-createApp(App).mount("#app")
+createApp(App).mount(".bodylogin")
