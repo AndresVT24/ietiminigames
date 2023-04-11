@@ -24,7 +24,11 @@ Route::get('/login', function () {
 });
 
 Route::get('/register', function () {
-    return view('login');
+    return view('register');
+});
+
+Route::get('/perfil', function () {
+    return view('perfil');
 });
 
 Route::get('/home', function () {

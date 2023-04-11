@@ -99,3 +99,64 @@
 .divForm form .buttonRegister{
     padding: 5px 20px 5px 20px;
 }
+
+/* REGISTER */
+#formRegister{
+    width: auto;
+    color: white;
+    background-color: #000;
+    padding: 0 10px 30px 10px;
+    border: 1px black solid;
+    border-radius: 10px;
+    flex-direction: column;
+}
+#formRegister .divDadesForm{
+    width: 30vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+}
+.divDadesForm .row{
+    grid-column: 1 /span 2;
+}
+.divDadesForm .row input{
+    width: 100%;
+}
+.labelInput1{
+    grid-row: 2;
+}
+.pRegister{
+    text-align: center;
+}
+.buttonLogin, .buttonRegister{
+    padding: 5px 20px 5px 20px;
+    display: block;
+    margin: 0 auto;
+}
+.buttonRegister{
+    margin: 20px auto 20px auto;
+}
+
+/* PERFIL */
+.divInfoPerfil{
+    display: grid;
+    grid-template-columns: 300px auto;
+    grid-template-rows: repeat(1fr, 5);
+}
+.divInfoPerfil .divImagePerfil{
+    grid-column: 1;
+}
+.divInfoPerfil .row{
+    grid-column: 1/span 2;
+}
+img{
+    border: 5px black solid;
+    border-radius: 50%;
+}
+.divInfoPerfil > div>p:nth-child(1){
+    font-weight: bolder;
+}
+.pNick{
+    font-size: xx-large;
+}

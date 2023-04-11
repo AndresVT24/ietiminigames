@@ -12,7 +12,7 @@
     </head>
     <body class="bodyIndex">
         <div id="buttonEntrar">
-            <a href="/login">JUGAR</a>
+                <a href="/login">JUGAR</a>
         </div>
     </body>
 </html>
