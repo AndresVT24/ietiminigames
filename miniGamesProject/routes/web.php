@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GameController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +26,12 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('login');
 });
+
+Route::get('/home', function () {
+    return view('home');
+});
+
+Route::get('/game/{game?}', [GameController::class, 'game'])->name('game');
+
+
+

@@ -7,27 +7,5 @@
     <title>Login</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bodyLogin">
-    <div class="divForm">
-        <form>
-            <p>LOGIN</p>
-            <hr>
-            <div class="divDadesForm">
-                <div class="labelInput">
-                    <p>NOMBRE DE USURIO: </p>
-                    <input type="text" placeholder="USUARIO">
-                </div>
-                <div class="labelInput">
-                    <p>CONTRASEÑA:</p>
-                    <input type="password">
-                </div>
-                <center><button type="submit" class="buttonLogin">LOGIN</button><center>
-            </div>
-            <a href="">¿Te has olvidado la contraseña?</a>
-            <hr>
-            <p class="pRegister" >¿No tienes una cuenta?</p>
-            <center><button class="buttonRegister" >REGISTRARSE</button><center>
-        </form>
-    </div>
-</body>
+<body class="bodyLogin"></body>
 </html>
