@@ -20,11 +20,11 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function () {
-    return view('login');
+    return view('auth/login');
 });
 
 Route::get('/register', function () {
-    return view('register');
+    return view('auth/register');
 });
 
 Route::get('/perfil', function () {
@@ -39,3 +39,7 @@ Route::get('/game/{game?}', [GameController::class, 'game'])->name('game');
 
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
