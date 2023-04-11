@@ -4,7 +4,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bodyLanding">
-    
+    <div id="buttonEntrar">
+            <a href="/login">JUGAR</a>
+    </div>
 </body>
 <script>
     
