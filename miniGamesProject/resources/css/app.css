@@ -139,18 +139,31 @@
 }
 
 /* PERFIL */
+.bodyPerfil{
+    background-color: #6cc4f5;
+}
 .divInfoPerfil{
+    margin-top: 20px;
+    margin-left: 20px;
     display: grid;
-    grid-template-columns: 300px auto;
-    grid-template-rows: repeat(1fr, 5);
+    grid-gap: 10px;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: repeat(5 1fr);
 }
 .divInfoPerfil .divImagePerfil{
     grid-column: 1;
+    grid-row: 1/5;
+    margin-right: 10px;
 }
+
 .divInfoPerfil .row{
-    grid-column: 1/span 2;
+    grid-column: 2;
+    border:black solid 1px;
+    border-radius: 5px;
+    padding: 5px;
+    width: 50%;
 }
-img{
+.divImagePerfil > img{
     border: 5px black solid;
     border-radius: 50%;
 }
@@ -158,5 +171,5 @@ img{
     font-weight: bolder;
 }
 .pNick{
-    font-size: xx-large;
+    font-size:40px;
 }

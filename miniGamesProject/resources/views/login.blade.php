@@ -25,16 +25,6 @@
             <button class="buttonRegister" >REGISTRARSE</button>
         </form>
     </div>
-    <?php
-    //use Illuminate\Support\Facades\DB;
-    
-    if(isset($_GET["user"]) || isset($_GET["pass"])){
-        // $user= $_POST["user"];
-        // $pass= $_POST["password"];
-        // $results = DB::select('select * from laravel.users u WHERE u.email = $user AND u.password = $pass;');
-        //print_r($results)
-    }
-    ?>
     <script>
         $(document).ready(function (){
         $(".buttonRegister").click(function() {
