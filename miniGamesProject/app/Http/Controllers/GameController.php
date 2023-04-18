@@ -14,8 +14,9 @@ class GameController
 
     public function game(Request $request)
     {
-        $game = $request->game;
-        session(['game' => $game]);
+        $game = Game::findOrFail($request->game);
+        session(['game_name' => $game->name]);
+        session(['game_id' => $game->id]);
         return view('game');
     }
 }

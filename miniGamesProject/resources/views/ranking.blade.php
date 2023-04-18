@@ -3,65 +3,75 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
 </head>
-
+<body>
+@php
+  $route = route('ranking', ['game' => session('game_id')]);
+@endphp
 <div id="header">
   <script>
-     var pagina = 'Menu de Juegos';
+     var pagina = 'Ranking '+"<?php echo session('game') ?>";
   </script>
 
-<header-component></header-component>
-
+  <header-component></header-component>
 </div>
-<div id="home-page">
-  
-  
-
+<div id="ranking-page">
+  <h1>Las 10 mejores partidas!</h1>
+  <div id="ranking">
+    <div id="nombres">
+      <h2>Usuarios</h2>
+    </div>
+    <div id="puntuaciones">
+      <h2>Puntuaciones</h2>
+    </div>
+  </div>
 </div>
 <div id="footer">
 <footer-component></footer-component>
 
 </div>
+</body>
 
 <style>
-  #home-page{
+  #ranking-page{
     display:grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 50px;
-    grid-template-rows:250px 250px;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+    grid-template-rows:75px 500px;
     padding: 70px;
     background-color: #6CC4F5;
     height: 650px;
-  }
-  .minigame{
-    border:2px solid black;
-    border-radius:20px;
-  }
-  .descriptionGame{
-    display:grid;
-    width:100%;
-    height:100%;
-    background-color:rgba(255, 255, 255, 0.6);
-    border-radius:20px;
-    color: black;
-    text-align:center;
-    align-items:center;
     justify-items:center;
-    display:none;
   }
-  a{
-    text-decoration:none;
+
+  #ranking{
+    justify-items:center;
+    display:grid;
+    grid-template-columns: 1fr 20px 1fr;
+    height:450px;
+    width:50%;
+    background-color:rgba(0,0,0,0.5);
+    text-align:center;
+    border:15px ridge black;
+    border-radius:15px;
   }
+  #nombres{
+    grid-column:1;
+  }
+  #puntuaciones{
+    grid-column:3;
+  }
+
+ 
 </style>
 <script>
-  $(document).ready(function() {
-    $(".minigame").hover(
-      function() {
-        $(this).find(".descriptionGame").slideDown("slow");
-      },
-      function() {
-        $(this).find(".descriptionGame").slideUp("slow");
-      }
-    );
+  // hacer una petición AJAX a la ruta para obtener los datos del ranking
+  $.get("{{$route}}", function(data) {
+    // data será un arreglo JSON con los datos del ranking
+    data.forEach(function(match) {
+      // para cada partido, crear un div con los datos que deseas mostrar
+      $($('#nombres').append($('<p>').text(match.user_id)));
+      $($('#puntuaciones').append($('<p>').text(match.points)));
+    });
   });
 </script>
 

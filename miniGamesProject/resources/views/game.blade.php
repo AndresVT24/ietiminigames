@@ -6,8 +6,7 @@
 
 <div id="header">
   <script>
-     var pagina = "<?php echo session('game') ?>";
-     console.log(pagina)
+     var pagina = "<?php echo session('game_name') ?>";
   </script>
 
 <header-component></header-component>
@@ -15,14 +14,15 @@
 </div>
 <div id="game-page">
  <div id="game-screen">
-  <div id="game" v-if="pagina === 'Memory'">
-    <memory-component ></memory-component>
-  </div>
-  <div id="game"  v-if="pagina === 'MindBreaker'">
-  <mind-breaker-component></mind-breaker-component>
-  </div>
-  <h2 v-else>No es Memory ni MindBreaker</h2>
-    
+    <?php
+        if(session('game_name') == "Memory"){
+            ?>
+            <div id="game">
+            <memory-component></memory-component>
+            </div>
+        <?php
+        }
+    ?>
  </div>
 
 </div>
