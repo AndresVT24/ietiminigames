@@ -27,11 +27,14 @@ Route::get('/register', function () {
     return view('login');
 });
 
-Route::get('/home', function () {
-    return view('home');
-});
+Route::get('/home', [GameController::class, 'getAllGames']);
 
 Route::get('/game/{game?}', [GameController::class, 'game'])->name('game');
 
+Route::post('/save-points', 'App\Http\Controllers\MatchController@savePoints');
+
+Route::get('/ranking/{game?}', function($game) {
+    return view('ranking', ['game' => $game]);
+});
 
 

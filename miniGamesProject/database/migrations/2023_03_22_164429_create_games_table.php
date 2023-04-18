@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('rules');
             $table->string('description');
-            $table->string('status');
+            $table->integer('status');
         });
     }
 

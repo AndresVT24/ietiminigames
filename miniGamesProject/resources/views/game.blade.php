@@ -7,6 +7,7 @@
 <div id="header">
   <script>
      var pagina = "<?php echo session('game') ?>";
+     console.log(pagina)
   </script>
 
 <header-component></header-component>
@@ -14,16 +15,14 @@
 </div>
 <div id="game-page">
  <div id="game-screen">
-    <?php
-        if(session('game') == "Memory"){
-            ?>
-            <div id="game">
-            <memory-component></memory-component>
-
-            </div>
-        <?php
-        }
-    ?>
+  <div id="game" v-if="pagina === 'Memory'">
+    <memory-component ></memory-component>
+  </div>
+  <div id="game"  v-if="pagina === 'MindBreaker'">
+  <mind-breaker-component></mind-breaker-component>
+  </div>
+  <h2 v-else>No es Memory ni MindBreaker</h2>
+    
  </div>
 
 </div>
@@ -56,6 +55,7 @@
     }
 </style>
 <script>
+  window.csrfToken = "{{ csrf_token() }}";
   $(document).ready(function() {
   $("#minigame1").hover(
     function() {

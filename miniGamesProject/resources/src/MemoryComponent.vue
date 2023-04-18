@@ -102,21 +102,32 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
     turnoMaquina(arrayNumeros)
+    
     function verificarSecuencia() {
         for (let i = 0; i < arrayClicksUsuario.length; i++) {
             if (arrayClicksUsuario[i] !== arrayNumeros[i]) {
                 // Si los elementos no son iguales, el usuario se equivocó
-                // Reiniciamos los arrays para comenzar de nuevo
-                arrayClicksUsuario = [];
-                arrayNumeros = [];
-                // Iniciamos un nuevo turno de la máquina
-                console.log(puntos)
-                puntos = 0
-                turnoMaquina(arrayNumeros);
-                return;
+                $.ajax({
+                url: '/save-points',
+                type: 'POST',
+                data: {
+                    // Aquí puedes pasar los datos que deseas guardar en la base de datos
+                    puntuacion: puntos,
+                    _token: window.csrfToken // Agrega el token CSRF aquí
+                },
+                success: function(response) {
+                    console.log('Los datos se han guardado correctamente');
+                    window.location.href = '/ranking/Memory';
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
             }
         }
-        puntos += arrayNumeros.length * 10 + 1
+
+        puntos += arrayNumeros.length * 10 + 1 // Sumamos puntuacion al hacer bien la secuencia
+
         // Si llegamos hasta aquí, los arrays son iguales
         if (arrayClicksUsuario.length === arrayNumeros.length) {
             console.log(puntos)

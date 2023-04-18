@@ -13,16 +13,7 @@
 
 </div>
 <div id="home-page">
-  @foreach ($games as $game)
-    <div class="minigame" id="minigame{{ $game->id }}">
-      <a href="{{ route('game', ['game' => $game->name]) }}">
-        <div class="descriptionGame"  id="desc{{ $game->id }}">
-          <h1>{{ $game->name }}</h1>
-          <p>{{ $game->description }}</p>
-        </div>
-      </a>
-    </div>
-  @endforeach
+  
   
 
 </div>
