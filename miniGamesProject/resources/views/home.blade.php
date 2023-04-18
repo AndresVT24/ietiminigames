@@ -5,7 +5,6 @@
 </head>
 
 <div id="header">
-  a
   <script>
      var pagina = 'Menu de Juegos';
   </script>
