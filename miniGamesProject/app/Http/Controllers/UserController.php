@@ -12,4 +12,14 @@ class UserController extends Controller
         $users= User::all();
         return view('admin', ['users' => $users]);
     }
+    public function delete($id)
+    {
+        $user = User::find($id);
+        if ($user) {
+            $user->delete();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'El usuario no se encontró.']);
+        }
+    }
 }
