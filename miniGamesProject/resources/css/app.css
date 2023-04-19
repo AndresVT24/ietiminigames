@@ -99,3 +99,77 @@
 .divForm form .buttonRegister{
     padding: 5px 20px 5px 20px;
 }
+
+/* REGISTER */
+#formRegister{
+    width: auto;
+    color: white;
+    background-color: #000;
+    padding: 0 10px 30px 10px;
+    border: 1px black solid;
+    border-radius: 10px;
+    flex-direction: column;
+}
+#formRegister .divDadesForm{
+    width: 30vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+}
+.divDadesForm .row{
+    grid-column: 1 /span 2;
+}
+.divDadesForm .row input{
+    width: 100%;
+}
+.labelInput1{
+    grid-row: 2;
+}
+.pRegister{
+    text-align: center;
+}
+.buttonLogin, .buttonRegister{
+    padding: 5px 20px 5px 20px;
+    display: block;
+    margin: 0 auto;
+}
+.buttonRegister{
+    margin: 20px auto 20px auto;
+}
+
+/* PERFIL */
+.bodyPerfil{
+    background-color: #6cc4f5;
+}
+.divInfoPerfil{
+    margin-top: 20px;
+    margin-left: 20px;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: repeat(5 1fr);
+}
+.divInfoPerfil .divImagePerfil{
+    grid-column: 1;
+    grid-row: 1/5;
+    margin-right: 10px;
+}
+
+.divInfoPerfil .row{
+    grid-column: 2;
+    border:black solid 1px;
+    border-radius: 5px;
+    padding: 5px;
+    width: 50%;
+}
+.divImagePerfil > img{
+    border: 5px black solid;
+    border-radius: 50%;
+}
+.divInfoPerfil > div>p:nth-child(1){
+    font-weight: bolder;
+}
+.pNick{
+    font-size:40px;
+}

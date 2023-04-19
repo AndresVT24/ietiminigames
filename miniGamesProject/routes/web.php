@@ -20,10 +20,14 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function () {
-    return view('login');
+    return view('auth/login');
 });
 Route::get('/register', function () {
-    return view('login');
+    return view('auth/register');
+});
+
+Route::get('/perfil', function () {
+    return view('perfil');
 });
 
 Route::get('/home', [GameController::class, 'getAllGames']);
@@ -33,7 +37,10 @@ Route::get('/ranking/{game?}', function($game) {
 });
 Route::get('/get_ranking_game', 'App\Http\Controllers\MatchController@getBestMatchesByIdGame')->name('ranking');
 
+Auth::routes();
 
 Route::post('/save-points', 'App\Http\Controllers\MatchController@savePoints');
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/admin', [App\Http\Controllers\UserController::class, 'index'])->name('admin');

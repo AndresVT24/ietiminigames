@@ -15,7 +15,7 @@
 #container-footer{
   display: grid;
   max-height: 150px;
-  height: 100%;
+  height: 15vh;
   width: 100%;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
