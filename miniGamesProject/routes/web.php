@@ -35,15 +35,10 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::get('/index', function () {
-    return view('index');
-});
-
 Route::get('/game/{game?}', [GameController::class, 'game'])->name('game');
-
-
-
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/admin', [App\Http\Controllers\UserController::class, 'index'])->name('admin');
