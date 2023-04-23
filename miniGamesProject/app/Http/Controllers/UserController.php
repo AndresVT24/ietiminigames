@@ -22,4 +22,15 @@ class UserController extends Controller
             return response()->json(['success' => false, 'message' => 'El usuario no se encontró.']);
         }
     }
+
+    public function edit($id)
+    {
+        $user = User::find($id);
+        if ($user) {
+            return response()->json(['user' => $user]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'El usuario no se encontró.']);
+        }
+    }
+
 }

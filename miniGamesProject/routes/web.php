@@ -39,4 +39,6 @@ Route::get('/admin', [App\Http\Controllers\UserController::class, 'index'])->nam
 
 Route::delete('/users/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('delete');
 
+Route::get('/users/{id}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('edit');
+
 Auth::routes();

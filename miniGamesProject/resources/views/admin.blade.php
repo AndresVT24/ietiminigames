@@ -38,7 +38,10 @@
                         <td>{{$user->password}}</td>
                         <td>{{$user->created_at}}</td>
                         <td>{{$user->updated_at}}</td>
-                        <td><button class='btn btn-sm btn-primary'>Editar</button><button class='btn btn-sm btn-danger btn-delete' data-id= '{{$user->id}}' + >Borrar</button></td>
+                        <td>
+                            <button class='btn btn-primary btn-sm edit-user' data-id= '{{$user->id}}'>Editar</button>
+                            <button class='btn btn-sm btn-danger btn-delete' data-id= '{{$user->id}}' + >Borrar</button>
+                         </td>
                     </tr>
                     @endforeach
             </tbody>
@@ -77,7 +80,7 @@
                             _token: $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function () {
-                            $('.table').ajax.reload();
+                            location.reload();
                         },
                         error: function (xhr) {
                             alert('Ha ocurrido un error al borrar el usuario.');
@@ -85,6 +88,25 @@
                     });
                 }
             });
+
+            $(document).on('click', '.edit-user', function () {
+                var userId = $(this).data('id');
+                $.ajax({
+                    url: '/users/' + userId + '/edit',
+                    type: 'GET',
+                    success: function (response) {
+                        $('#edit-user-form input[name="id"]').val(response.user.id);
+                        $('#edit-user-form input[name="name"]').val(response.user.name);
+                        $('#edit-user-form input[name="email"]').val(response.user.email);
+                        console.log()
+                        $('#edit-user-modal').modal('show');
+                    },
+                    error: function (xhr) {
+                        alert('Ha ocurrido un error al cargar los datos del usuario.');
+                    }
+                });
+            });
+
         });
     </script>
 @stop
