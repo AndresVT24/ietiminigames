@@ -304,12 +304,12 @@ return [
         ['header' => 'ADMINISTRADOR'],
         [
             'text' => 'Usuarios',
-            'url'  => 'admin/settings',
+            'url'  => 'admin/',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'Juegos',
-            'url'  => 'admin/settings',
+            'url'  => 'admin/games',
             'icon' => 'fas fa-fw fa-lock',
         ],
         [

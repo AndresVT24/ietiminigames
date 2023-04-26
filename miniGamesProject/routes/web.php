@@ -35,10 +35,17 @@ Route::get('/game/{game?}', [GameController::class, 'game'])->name('game');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/admin', [App\Http\Controllers\UserController::class, 'index'])->name('admin');
+//ADMINPANEL
+Route::get('/admin', [App\Http\Controllers\UserController::class, 'infoUsers'])->name('admin');
 
-Route::delete('/users/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('delete');
+Route::get('/userFind/{id}', [App\Http\Controllers\UserController::class, 'findUser'])->name('findUser');
 
-Route::get('/users/{id}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('edit');
+Route::put('/userEdit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('edit');
 
+Route::delete('/userDelete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('delete');
+
+Route::get('/admin/games', function () {
+    return view('adminGames');
+});
+//FIN ADMINPANEL
 Auth::routes();
