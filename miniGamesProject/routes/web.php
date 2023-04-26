@@ -44,8 +44,8 @@ Route::put('/userEdit/{id}', [App\Http\Controllers\UserController::class, 'edit'
 
 Route::delete('/userDelete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('delete');
 
-Route::get('/admin/games', function () {
-    return view('adminGames');
-});
+Route::get('/admin/games',[GameController::class, 'infoGames']) ->name('adminGames');
+
+Route::delete('/gameDelete/{id}', [GameController::class, 'delete'])->name('delete');
 //FIN ADMINPANEL
 Auth::routes();
