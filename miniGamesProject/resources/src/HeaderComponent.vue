@@ -11,8 +11,8 @@
       <h2 id="userName"></h2>
     </div>
     <div id="lastRow">
-      <a id="profileLink" class="navHeader" style="display: none;" href="/perfil">Profile</a>
-      <a id="logoutLink" class="navHeader" style="display: none;">Log Out</a>
+      <a id="profileLink" class="navHeader" style="display: none;" href="/perfil">Perfil</a>
+      <a id="logoutLink" class="navHeader" style="display: none;">Salir</a>
     </div>
   </div>
 </template>
@@ -143,6 +143,7 @@ $(document).ready(function(){
   border-radius: 0 0 5px 5px;
   z-index: 1;
   color: black;
+  cursor: pointer;
 }
 
 #logoutLink::before {

@@ -8,7 +8,7 @@
 
 <div id="header">
   <script>
-     var pagina = 'Menu de Juegos';
+     var pagina = 'Menú de Juegos';
      localStorage.setItem("usuario", '{{ session('nickname') }}');
      localStorage.setItem("id_usuario", '{{ session('idUser') }}');
   </script>
@@ -17,6 +17,9 @@
 
 </div>
 <div id="home-page">
+  <div id="partidas-restantes">
+    <h3></h3>
+  </div>
   @foreach ($games as $game)
     <div class="minigame" id="minigame{{ $game->id }}">
       <a href="{{ route('game', ['game' => $game->id]) }}">
@@ -52,13 +55,27 @@
     border-radius:20px;
   }
   .descriptionGame{
+    font-size:calc(0.5rem + 0.7vw);
+    font-weight:bolder;
     width:100%;
     height:100%;
-    background-color:rgba(255, 255, 255, 0.6);
+    background-color:rgba(255, 255, 255, 0.9);
     border-radius:20px;
     color: black;
     text-align:center;
     display:none;
+  }
+  .descriptionGame p{
+    padding:20px;
+  }
+  #partidas-restantes{
+    position: fixed;
+    top: 14%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  #partidas-restantes h3{
+    font-size: calc(0.8rem + 0.7vw);
   }
   .descriptionGame div{
     display:flex;
@@ -75,9 +92,19 @@
   }
   #minigame1{
     background-image: url('/img/memoryGame.jpg');
-    background-size:cover;
-    background-position:center;
+    background-size: contain; /* Ajusta la imagen para que cubra todo el contenedor */
+    background-position: center; /* Centra la imagen en el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-color:antiquewhite;
   }
+  #minigame2 {
+  background-image: url('/img/mindBreakerGame.jpg');
+  background-size: contain; /* Ajusta la imagen para que cubra todo el contenedor */
+  background-position: center; /* Centra la imagen en el contenedor */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-color:antiquewhite;
+
+}
 </style>
 <script>
   $(document).ready(function() {
@@ -89,6 +116,25 @@
         $(this).find(".descriptionGame").slideUp("slow");
       }
     );
+
+    // hacer una petición AJAX a la ruta para obtener los datos del ranking
+    $.get("/countTodayMatches", function(data) {
+      // data será un arreglo JSON con los datos del ranking
+      if(data == -1){
+        $('#partidas-restantes').css('display','none')
+      }else{
+        $('#partidas-restantes h3').text('Partidas Jugadas: '+data+'/5')
+        $('.minigame a').click(function(event){
+          event.preventDefault();
+        })
+        if(data >= 5){
+          $('.descriptionGame').css('backgroundColor','rgba(255, 0, 0, 0.9)')
+          $('.descriptionGame div h1').text('No Disp.');
+          $('.descriptionGame div p').text('Vaya... Parece ser que has llegado al límite de partidas diario, si quieres seguir jugando conviértete en VIP por tan solo 2€ y juega todas las partidas que quieras.');
+        }
+      }
+      
+    });
   });
 </script>
 

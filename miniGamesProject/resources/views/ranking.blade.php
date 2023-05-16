@@ -50,7 +50,7 @@
     grid-template-columns: 1fr 20px 1fr;
     height:450px;
     width:50%;
-    background-color:rgba(0,0,0,0.5);
+    background-color:rgba(0,0,0,0.35);
     text-align:center;
     border:15px ridge black;
     border-radius:15px;
@@ -58,8 +58,12 @@
   #nombres{
     grid-column:1;
   }
-  #nombres h2{
+  #ranking-page h1{
     font-size:3rem;
+  }
+  #nombres h2{
+    font-size:2rem;
+    padding:20px;
   }
   #nombres p{
     font-size:1.8rem;
@@ -68,7 +72,8 @@
     grid-column:3;
   }
   #puntuaciones h2{
-    font-size:3rem;
+    font-size:2rem;
+    padding:20px;
   }
   #puntuaciones p{
     font-size:1.8rem;

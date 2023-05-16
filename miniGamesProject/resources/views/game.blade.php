@@ -38,7 +38,7 @@
         <p id="puntuacion-final">Puntuacion final: </p>
         <p id="partidas-restantes"></p>
         <a id="boton-siguiente-pagina" onclick="goToRanking()">Mostrar rankings</a>
-        <a id="boton-menu-inicial" href="/home">Menu inicial</a>
+        <a id="boton-menu-inicial" href="/home">Menú inicial</a>
         <a id="boton-volvera-jugar" href="">Volver a Jugar</a>
     </div>
   </div>
@@ -144,7 +144,7 @@
 </style>
 <script>
   function goToRanking(){
-    window.location.href = '/ranking/'+session('game_name');
+    window.location.href = '/ranking/'+pagina;
   }
   window.csrfToken = "{{ csrf_token() }}";
   function lose_game() {
@@ -170,9 +170,11 @@
       $('#partidas-restantes').css('display','none')
     }else{
       let partidasActuales = data+1
-      if(partidasActuales >= 5){
+      if(partidasActuales == 5){
         $('#partidas-restantes').text('Partidas Jugadas: '+partidasActuales+'/5')
         $('#boton-volvera-jugar').css('display','none')
+      }else if(partidasActuales > 5){
+        window.location.href = "/home";
       }
       $('#partidas-restantes').text('Partidas Jugadas: '+partidasActuales+'/5')
     }
