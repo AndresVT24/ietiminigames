@@ -12,4 +12,9 @@ class Matches extends Model
     protected $table = 'matches';
     protected $primaryKey = 'id';
     protected $fillable = ['game_id','user_id','created_at','updated_at','points'];
+    
+    public function user()
+        {
+            return $this->belongsTo(User::class);
+        }
 }

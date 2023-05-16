@@ -9,7 +9,8 @@ class GameController
     public function getAllGames()
     {
         $games = Game::all();
-        return view('home', ['games' => $games]);
+        
+        return view('home', ['games' => $games,]);
     }
 
     public function game(Request $request)

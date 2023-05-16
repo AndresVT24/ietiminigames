@@ -1,13 +1,83 @@
 <template>
     <div id="container-memory">
+        <p id="tiempo-restante">30</p>
+        <p id="puntuacion-actual">Puntos: 0</p>
         <div id="green" class="circle"></div>
         <div id="red" class="circle"></div>
         <div id="blue" class="circle"></div>
         <div id="yellow" class="circle"></div>
     </div>
 </template>
-    
-  
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#container-memory {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 33% 33% 33%;
+    align-items: center;
+    justify-items: center;
+    height: 100%;
+    background-color: antiquewhite;
+}
+#container-memory #puntuacion-actual{
+    justify-self: end;
+    align-self: baseline;
+    margin-top: 50px;
+    font-size:calc(0.6em + 1vw) !important;
+    grid-row: 1;
+    grid-column: 8;
+}
+#container-memory #tiempo-restante{
+    grid-row: 1;
+    grid-column: 5;
+}
+#tiempo-restante{
+    grid-row: 2;
+    grid-column: 2/4;
+}
+.circle {
+    width: 10vw;
+    height: 10vw;
+    grid-row: 2;
+    border-radius: 100%;
+    border: 5px ridge black;
+    justify-self: center;
+    align-self: center;
+}
+
+.effect {
+    background-color: rgb(255, 255, 0);
+    box-shadow: 0 0 60px rgb(255, 0, 76);
+}
+
+#red {
+    grid-row: 2;
+    grid-column: 2;
+    background-color: red;
+}
+
+#blue {
+    grid-row: 2;
+    grid-column: 4;
+    background-color: blue;
+}
+
+#yellow {
+    grid-row: 2;
+    grid-column: 6;
+    background-color: yellow;
+}
+
+#green {
+    grid-row: 2;
+    grid-column: 8;
+    background-color: green;
+}
+</style>
 <script setup>
 window.addEventListener('DOMContentLoaded', function () {
     const red = document.querySelector('#red');
@@ -17,6 +87,9 @@ window.addEventListener('DOMContentLoaded', function () {
     var puntos = 0;
     let arrayClicksUsuario = []
     let turnoMaquinaActivo = false;
+    var tiempo = 30;
+
+    let interval = setInterval(cuentaRegresiva, 1000);
 
     function addEffect(element) {
         element.classList.add('effect');
@@ -64,6 +137,9 @@ window.addEventListener('DOMContentLoaded', function () {
     // Repite esto para los otros manejadores de eventos 'click'
 
     function turnoMaquina(arrayNumeros) {
+        tiempo = 30;
+        clearInterval(interval);
+
         // Desactiva los clicks del usuario durante el turno de la máquina
         turnoMaquinaActivo = true;
 
@@ -94,6 +170,7 @@ window.addEventListener('DOMContentLoaded', function () {
         // Reactiva los clicks del usuario después de que termine el turno de la máquina
         setTimeout(function () {
             turnoMaquinaActivo = false;
+            interval = setInterval(cuentaRegresiva, 1000);
         }, 2000*arrayNumeros.length);
         
     }
@@ -104,37 +181,71 @@ window.addEventListener('DOMContentLoaded', function () {
     turnoMaquina(arrayNumeros)
     
     function verificarSecuencia() {
+        var correcto = true;
         for (let i = 0; i < arrayClicksUsuario.length; i++) {
             if (arrayClicksUsuario[i] !== arrayNumeros[i]) {
+                correcto = false;
                 // Si los elementos no son iguales, el usuario se equivocó
                 $.ajax({
-                url: '/save-points',
-                type: 'POST',
-                data: {
-                    // Aquí puedes pasar los datos que deseas guardar en la base de datos
-                    puntuacion: puntos,
-                    _token: window.csrfToken // Agrega el token CSRF aquí
-                },
-                success: function(response) {
-                    console.log('Los datos se han guardado correctamente');
-                    window.location.href = '/ranking/Memory';
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
-            });
+                    url: '/save-points',
+                    type: 'POST',
+                    data: {
+                        // Aquí puedes pasar los datos que deseas guardar en la base de datos
+                        puntuacion: puntos,
+                        _token: window.csrfToken // Agrega el token CSRF aquí
+                    },
+                    success: function(response) {
+                        console.log('Los datos se han guardado correctamente');
+                        lose_game();
+                        clearInterval(interval);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+                document.getElementById('puntuacion-final').innerHTML += puntos;
             }
         }
+        if(correcto){
+            puntos += arrayNumeros.length * 10 + 1 // Sumamos puntuacion al hacer bien la secuencia
 
-        puntos += arrayNumeros.length * 10 + 1 // Sumamos puntuacion al hacer bien la secuencia
+            // Si llegamos hasta aquí, los arrays son iguales
+            if (arrayClicksUsuario.length === arrayNumeros.length) {
+                console.log(puntos)
+                // Reiniciamos el array de clicks del usuario para comenzar un nuevo nivel
+                arrayClicksUsuario = [];
+                // Iniciamos un nuevo turno de la máquina
+                turnoMaquina(arrayNumeros);
+            }
+        }
+        
+    }
+    function cuentaRegresiva() {
+        const tiempoRestante = document.getElementById('tiempo-restante');
+        tiempoRestante.innerHTML = tiempo;
 
-        // Si llegamos hasta aquí, los arrays son iguales
-        if (arrayClicksUsuario.length === arrayNumeros.length) {
-            console.log(puntos)
-            // Reiniciamos el array de clicks del usuario para comenzar un nuevo nivel
-            arrayClicksUsuario = [];
-            // Iniciamos un nuevo turno de la máquina
-            turnoMaquina(arrayNumeros);
+        if (tiempo < 0) {
+            clearInterval(interval);
+            tiempoRestante.innerHTML = "0";
+            $.ajax({
+                    url: '/save-points',
+                    type: 'POST',
+                    data: {
+                        // Aquí puedes pasar los datos que deseas guardar en la base de datos
+                        puntuacion: puntos,
+                        _token: window.csrfToken // Agrega el token CSRF aquí
+                    },
+                    success: function(response) {
+                        console.log('Los datos se han guardado correctamente');
+                        lose_game();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            document.getElementById('puntuacion-final').innerHTML += puntos;
+        } else {
+            tiempo--;
         }
     }
 
@@ -142,57 +253,3 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 </script>
-<style>
-* {
-    margin: 0;
-    padding: 0;
-}
-
-#container-memory {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 100%;
-    align-items: center;
-    justify-items: center;
-    height: 100%;
-    background-color: antiquewhite;
-}
-
-.circle {
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
-    border: 5px ridge black;
-    justify-self: center;
-    align-self: center;
-}
-
-.effect {
-    background-color: rgb(255, 255, 0);
-    box-shadow: 0 0 60px rgb(255, 0, 76);
-}
-
-#red {
-    grid-row: 1;
-    grid-column: 2;
-    background-color: red;
-}
-
-#blue {
-    grid-row: 1;
-    grid-column: 4;
-    background-color: blue;
-}
-
-#yellow {
-    grid-row: 1;
-    grid-column: 6;
-    background-color: yellow;
-}
-
-#green {
-    grid-row: 1;
-    grid-column: 8;
-    background-color: green;
-}
-</style>

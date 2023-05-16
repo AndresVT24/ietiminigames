@@ -9,13 +9,13 @@
 @endphp
 <div id="header">
   <script>
-     var pagina = 'Ranking '+"<?php echo session('game') ?>";
+     var pagina = "Ranking "+"<?php echo session('game_name') ?>";
   </script>
 
   <header-component></header-component>
 </div>
 <div id="ranking-page">
-  <h1>Las 10 mejores partidas!</h1>
+  <h1>Las 10 mejores partidas en <?php echo session('game_name') ?>!</h1>
   <div id="ranking">
     <div id="nombres">
       <h2>Usuarios</h2>
@@ -41,6 +41,7 @@
     background-color: #6CC4F5;
     height: 650px;
     justify-items:center;
+    margin-top:-80px;
   }
 
   #ranking{
@@ -57,9 +58,22 @@
   #nombres{
     grid-column:1;
   }
+  #nombres h2{
+    font-size:3rem;
+  }
+  #nombres p{
+    font-size:1.8rem;
+  }
   #puntuaciones{
     grid-column:3;
   }
+  #puntuaciones h2{
+    font-size:3rem;
+  }
+  #puntuaciones p{
+    font-size:1.8rem;
+  }
+
 
  
 </style>
@@ -69,7 +83,7 @@
     // data será un arreglo JSON con los datos del ranking
     data.forEach(function(match) {
       // para cada partido, crear un div con los datos que deseas mostrar
-      $($('#nombres').append($('<p>').text(match.user_id)));
+      $($('#nombres').append($('<p>').text(match.user_name)));
       $($('#puntuaciones').append($('<p>').text(match.points)));
     });
   });
