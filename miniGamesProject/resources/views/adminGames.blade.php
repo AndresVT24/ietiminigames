@@ -9,15 +9,15 @@
 @section('content')
 
 <!-- ES EL MODEL QUE SE USA CUANDO QUEREMOS EDITAR LA INFO DE UN USUARIO -->
-<div class="modal" tabindex="-1" id="editUser">
+<div class="modal" tabindex="-1" id="editGame">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">EDITAR USUARIO</h5>
+                <h5 class="modal-title">EDITAR JUEGO</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btnClose"></button>
             </div>
         <div class="modal-body">
-        <form class="form-floating row g-3" id="formEditUser" method="post">
+        <form class="form-floating row g-3" id="formEditGame" method="post">
             @csrf
             @method('PUT')
             <!-- AQUI SE AÑADE CON JQUERY LA INFO DEL USUARIO QUE QUEREMOS EDITAR -->
@@ -41,6 +41,7 @@
                 <th>NAME</th>
                 <th>DESCRIPTION</th>
                 <th>STATUS</th>
+                <th>UPDATED_AT</th>
                 <th>ACCIONES</th>
             </thead>
             <tbody>
@@ -50,8 +51,9 @@
                         <td>{{$game->name}}</td>
                         <td>{{$game->description}}</td>
                         <td>{{$game->status}}</td>
+                        <td>{{$game->updated_at}}</td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#editUser" data-id= '{{$game->id}}'>Editar</button>
+                            <button type="button" class="btn btn-sm btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#editGame" data-id= '{{$game->id}}'>Editar</button>
                             <button type="button" class='btn btn-sm btn-danger btn-delete' data-id= '{{$game->id}}' + >Borrar</button>
                         </td>
                     </tr>
@@ -77,7 +79,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
-            var userId=0
+            var gameId=0
 
             //HACE QUE LA TABLA QUE ENSEÑA LOS USUARIO SEA RESPONSIVE
             $('#games').DataTable({
@@ -86,8 +88,8 @@
             });
             
             //BORRA DEL DOM LOS DATOS QUE SE ENSEÑA EN EL FORM
-            $("#btnClose").click(function (){
-                $("#formEditUser").empty()
+            $(".btn-edit").click(function (){
+                $("#formEditGame").empty()
             })
             
             //ELIMINA EL JUEGO DE LA BASE DE DATOS
@@ -112,20 +114,20 @@
 
             //ENSEÑA EL FORMULARIO PARA PODER EDITAR AL USUARIO CON LOS DATOS DEL USUARIO
             $(document).on('click', '.btn-edit', function () {
-                userId = $(this).data('id');
-                userId= userId
+                gameId = $(this).data('id');
+                gameId= gameId
                 $.ajax({
-                    url: '/userFind/' + userId ,
+                    url: '/gameFind/' + gameId ,
                     type: 'GET',
                     success: function(data){
-                        data= data.userInfo
-                        arrayNoEdit= ["id", "email", "email_verified_at", "created_at", "updated_at"]
-                        $.each(data, function(index, usuario) {
+                        data= data.gameInfo
+                        arrayNoEdit= ["id", "updated_at"]
+                        $.each(data, function(index, game) {
                             if($.inArray(index, arrayNoEdit) !== -1){
-                                $("#formEditUser").append('<div class="col-md-6"> <label for="input'+index+'" class="form-label">'+index+'</label> <input type="text" class="form-control" id="input'+index+'" value="'+usuario+'" name="'+index+'" disabled> </div>')
+                                $("#formEditGame").append('<div class="col-md-6"> <label for="input'+index+'" class="form-label">'+index+'</label> <input type="text" class="form-control" id="input'+index+'" value="'+game+'" name="'+index+'" disabled> </div>')
                             }
                             else{
-                                $("#formEditUser").append('<div class="col-md-6"> <label for="input'+index+'" class="form-label">'+index+'</label> <input type="text" class="form-control" id="input'+index+'" value="'+usuario+'" name="'+index+'"> </div>')
+                                $("#formEditGame").append('<div class="col-md-6"> <label for="input'+index+'" class="form-label">'+index+'</label> <input type="text" class="form-control" id="input'+index+'" value="'+game+'" name="'+index+'"> </div>')
 
                             }
                         });
@@ -140,9 +142,9 @@
             //GUARDA LOS CAMBIOS QUE SE HAYAN HECHO EN EL USUARIO
             $("#btnSave").click(function (e) {
                 e.preventDefault();
-                var datosFormulario = $('#formEditUser').serialize();
+                var datosFormulario = $('#formEditGame').serialize();
                 $.ajax({
-                    url: "/userEdit/" + userId,
+                    url: "/gameEdit/" + gameId,
                     method: 'PUT',
                     data: datosFormulario,
                     success: function(response) {

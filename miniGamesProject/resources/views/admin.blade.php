@@ -100,7 +100,7 @@
             });
             
             //BORRA DEL DOM LOS DATOS QUE SE ENSEÑA EN EL FORM
-            $("#btnClose").click(function (){
+            $(".btn-edit").click(function (){
                 $("#formEditUser").empty()
             })
             

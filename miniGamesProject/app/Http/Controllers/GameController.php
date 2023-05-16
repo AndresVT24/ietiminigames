@@ -30,4 +30,27 @@ class GameController
         }
     }
 
+    public function findGame($id)
+    {
+        $game= Game::find($id);
+        if ($game) {
+            return response()->json(['success' => true, 'gameInfo' => $game]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'El juego no se encontró.']);
+        }
+    }
+
+    public function edit(Request $request, $id)
+    {
+        $game = Game::findOrFail($id);
+        if ($game) {
+            $game->name = $request->name;
+            $game->description = $request->description;
+            $game->status = $request->status;
+            $game->save();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'El juego no se ha podido editar.']);
+        }
+    }
 }

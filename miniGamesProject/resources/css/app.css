@@ -147,7 +147,7 @@
     margin-left: 20px;
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr 2fr auto;
     grid-template-rows: repeat(5 1fr);
 }
 .divInfoPerfil .divImagePerfil{
@@ -156,7 +156,7 @@
     margin-right: 10px;
 }
 
-.divInfoPerfil .row{
+.divInfoPerfil .rows{
     grid-column: 2;
     border:black solid 1px;
     border-radius: 5px;

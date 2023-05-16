@@ -1,8 +1,10 @@
 <template>
   <div id="container-header">
-    <img id="logoHeader" src="../img/logo_ieti.png" alt="">
+    <img id="logoHeader" src="../img/logo_ieti.png" alt="Logo de la pagina">
     <h1 id="tituloHeader"></h1>
-    <img id="logoUsuario" src="../img/user-logo.jpg" alt="">
+    <a href="/perfil">
+      <img id="logoUsuario" src="../img/user-logo.jpg" alt="Foto del usuario">
+    </a>
 
   </div>
 </template>

@@ -36,6 +36,7 @@ Route::get('/game/{game?}', [GameController::class, 'game'])->name('game');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //ADMINPANEL
+//USERS
 Route::get('/admin', [App\Http\Controllers\UserController::class, 'infoUsers'])->name('admin');
 
 Route::get('/userFind/{id}', [App\Http\Controllers\UserController::class, 'findUser'])->name('findUser');
@@ -44,8 +45,16 @@ Route::put('/userEdit/{id}', [App\Http\Controllers\UserController::class, 'edit'
 
 Route::delete('/userDelete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('delete');
 
+//JUEGOS
 Route::get('/admin/games',[GameController::class, 'infoGames']) ->name('adminGames');
 
 Route::delete('/gameDelete/{id}', [GameController::class, 'delete'])->name('delete');
+
+Route::get('/gameFind/{id}', [App\Http\Controllers\GameController::class, 'findGame'])->name('findGame');
+
+Route::put('/gameEdit/{id}', [App\Http\Controllers\GameController::class, 'edit'])->name('edit');
 //FIN ADMINPANEL
+
+Route::get('/userFind/{id}', [App\Http\Controllers\UserController::class, 'findUser'])->name('findUser');
+
 Auth::routes();

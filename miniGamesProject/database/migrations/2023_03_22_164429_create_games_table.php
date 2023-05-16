@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('games', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('rules');
-            $table->string('description');
-            $table->string('status');
+        // Schema::create('games', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('name');
+        //     $table->string('rules');
+        //     $table->string('description');
+        //     $table->string('status');
+        // });
+
+        Schema::table('games', function ($table) {
+            $table->timestamp('updated_at');
         });
     }
 
