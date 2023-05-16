@@ -78,10 +78,8 @@
 </body>
 <script>
     $(document).ready(function (){
-        //INDENTIFICACION SI ES PREMIUM
+//INDENTIFICACION SI ES PREMIUM
         var idValor = $(".btn-edit").attr("data-id");
-        console.log(idValor)
-        
         $.ajax({
             url: 'userFind/' + idValor ,
             type: 'GET',
@@ -105,20 +103,18 @@
             }
         });
 
-        //BORRA DEL DOM LOS DATOS QUE SE ENSEÑA EN EL FORM
+//BORRA DEL DOM LOS DATOS QUE SE ENSEÑA EN EL FORM
         $(".btn-edit").click(function (){
                 $("#formEditUser").empty()
             })
-
-        //OBTENER DATOS DEL USUARIO PARA EL FORMULARIO
+        
+ //OBTENER DATOS DEL USUARIO PARA EL FORMULARIO
         $(document).on('click', '.btn-edit', function () {
                 var userId = $(this).data('id');
-                console.log(userId)
                 $.ajax({
                     url: 'userFind/' + userId ,
                     type: 'GET',
                     success: function(data){
-                        console.log(data)
                         data= data.userInfo
                         arrayAvoid= ["id", "updated_at", "created_at", "status", "email_verified_at", "rol"]
                         arrayNotAvaliable= ['email', 'nick_name']
