@@ -1,6 +1,5 @@
 <template>
   <div id="container-header">
-    <img id="logoHeader" src="../img/logo_ieti.png" alt="Logo de la pagina">
     <!-- <a href="/perfil">
       <img id="logoUsuario" src="../img/user-logo.jpg" alt="Foto del usuario">
     </a> -->
@@ -12,7 +11,7 @@
       <h2 id="userName"></h2>
     </div>
     <div id="lastRow">
-      <a id="profileLink" class="navHeader" style="display: none;" href="{{ route('game', ['game' => $game->id]) }}">Profile</a>
+      <a id="profileLink" class="navHeader" style="display: none;" href="/perfil">Profile</a>
       <a id="logoutLink" class="navHeader" style="display: none;">Log Out</a>
     </div>
   </div>
