@@ -15,46 +15,51 @@ use App\Http\Controllers\GameController;
 |
 */
 
+Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
+Route::middleware(['auth'])->group(function () {
+    
+    Route::get('/perfil', function () {
+        return view('perfil');
+    });
+    
+    Route::get('/home', [GameController::class, 'getAllGames']);
+    Route::get('/game/{game?}', [GameController::class, 'game'])->name('game');
+    Route::get('/ranking/{game?}', function($game) {
+        return view('ranking', ['game' => $game]);
+    });
+    Route::get('/get_ranking_game', 'App\Http\Controllers\MatchController@getBestMatchesByIdGame')->name('ranking');
+    Route::get('/countTodayMatches', 'App\Http\Controllers\MatchController@countTodayMatches')->name('countMatches');    
+    
+    Route::post('/save-points', 'App\Http\Controllers\MatchController@savePoints');
+    
+    Route::get('/session', function () {
+        return session()->all();
+    });
+    
+    Route::get('/users/{id}', function ($id) {
+        $user = App\Models\User::find($id);
+        return $user;
+    });
 
-Route::get('/login', function () {
-    return view('auth/login');
+    //ADMINPANEL
+    //USERS
+    Route::get('/admin', [App\Http\Controllers\UserController::class, 'infoUsers'])->name('admin');
+    Route::get('/userFind/{id}', [App\Http\Controllers\UserController::class, 'findUser'])->name('findUser');
+    Route::put('/userEdit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('edit');
+    Route::delete('/userDelete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('delete');
+
+    //JUEGOS
+    Route::get('/admin/games',[GameController::class, 'infoGames']) ->name('adminGames');
+    Route::delete('/gameDelete/{id}', [GameController::class, 'delete'])->name('delete');
+    Route::get('/gameFind/{id}', [App\Http\Controllers\GameController::class, 'findGame'])->name('findGame');
+    Route::put('/gameEdit/{id}', [App\Http\Controllers\GameController::class, 'edit'])->name('edit');
+    //FIN ADMINPANEL
+
+    Route::get('/userFind/{id}', [App\Http\Controllers\UserController::class, 'findUser'])->name('findUser');
 });
-
-Route::get('/register', function () {
-    return view('auth/register');
-});
-
-Route::get('/perfil', function () {
-    return view('perfil');
-});
-
-Route::get('/game/{game?}', [GameController::class, 'game'])->name('game');
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-//ADMINPANEL
-//USERS
-Route::get('/admin', [App\Http\Controllers\UserController::class, 'infoUsers'])->name('admin');
-
-Route::get('/userFind/{id}', [App\Http\Controllers\UserController::class, 'findUser'])->name('findUser');
-
-Route::put('/userEdit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('edit');
-
-Route::delete('/userDelete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('delete');
-
-//JUEGOS
-Route::get('/admin/games',[GameController::class, 'infoGames']) ->name('adminGames');
-
-Route::delete('/gameDelete/{id}', [GameController::class, 'delete'])->name('delete');
-
-Route::get('/gameFind/{id}', [App\Http\Controllers\GameController::class, 'findGame'])->name('findGame');
-
-Route::put('/gameEdit/{id}', [App\Http\Controllers\GameController::class, 'edit'])->name('edit');
-//FIN ADMINPANEL
-
-Route::get('/userFind/{id}', [App\Http\Controllers\UserController::class, 'findUser'])->name('findUser');
-
+/*
 Auth::routes();
+*/

@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,10 +19,10 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav id="navLayout" class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img id="logoHeader" src="{{ url('/img/logo_ieti.png') }}" alt=""> 
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -40,13 +40,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <h3><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></h3>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <h3><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></h3>
                                 </li>
                             @endif
                         @else
@@ -78,4 +78,33 @@
         </main>
     </div>
 </body>
+<style>
+    #navLayout{
+        height:11vh;
+        background-color: #1C8E8A !important;
+    }
+    #navLayout #logoHeader{
+        height:11vh;
+    }
+    main{
+        background-color: #6CC4F5 !important;  
+        height:89vh;
+    }
+    .container{
+        max-width:70%;
+    }
+    .card{
+        margin-top:5vh;
+        min-height:300px;
+        border:0px solid black;
+        box-shadow:10px black;
+    }
+    .card-header{
+        height:70px;
+        background-color: #1C8E8A !important;
+        text-align:center;
+        font-size:2rem;
+    }
+
+</style>
 </html>
