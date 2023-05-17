@@ -2,6 +2,10 @@
 @section('title', 'Perfil')
 
 @section('content')
+{{session(['nickname' => Auth::user()->nick_name]);}}
+{{session(['rol' => Auth::user()->rol]);}}
+{{session(['idUser' => Auth::user()->id]);}}
+@if(Auth::user()->status != 0)
 <div id="home-page">
   <div id="partidas-restantes">
     <h3></h3>

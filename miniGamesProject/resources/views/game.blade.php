@@ -1,21 +1,12 @@
+@extends('base')
+@section('title', 'Perfil')
+
+@section('content')
 @if(Auth::user()->status != 0)
-@vite(['resources/css/app.css', 'resources/js/app.js'])
-<head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
-</head>
-<body>
 @php
   $countMatches = route('ranking');
 @endphp
-<div id="header">
-  <script>
-     var pagina = "<?php echo session('game_name') ?>";
-  </script>
 
-<header-component></header-component>
-
-</div>
 <div id="game-page">
  <div id="game-screen">
     <?php
@@ -43,11 +34,6 @@
         <a id="boton-volvera-jugar" href="">Volver a Jugar</a>
     </div>
   </div>
-</div>
-
-<div id="footer">
-<footer-component></footer-component>
-
 </div>
 </body>
 @else
@@ -131,7 +117,6 @@
     grid-template-rows: 80px auto 80px;
     background-color: #6CC4F5;
     min-height: 730px;
-    margin-top: -120px;
   }
   #game-screen{
     grid-row:2;
@@ -158,6 +143,7 @@
     }
 </style>
 <script>
+  var pagina = "<?php echo session('game_name') ?>";
   function goToRanking(){
     window.location.href = '/ranking/'+pagina;
   }
@@ -199,4 +185,4 @@
 
 </script>
 
-
+@endsection

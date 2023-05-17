@@ -8,6 +8,7 @@
         }
     </style>
     <!-- MODAL -->
+    @if(Auth::user()->status != 0)
     <div id="modal" class="fixed top-0 left-0 w-full h-full flex items-center justify-center overlay hidden">
         <div class="bg-white w-1/2 p-8 border rounded">
             <h2 class="text-lg font-bold mb-4">Editar {{Auth::user() -> nick_name}}</h2>

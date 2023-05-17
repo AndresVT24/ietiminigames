@@ -38,7 +38,7 @@ class MatchController extends Controller
 
     public function countTodayMatches(){
         $userRol = auth()->user()->rol; // Obtiene el id del usuario actualmente autenticado
-        if($userRol == 'Vip'){
+        if($userRol == 1 || $userRol == 2){
             $matchesPlayedToday = -1;
         }else{
             $userId = auth()->user()->id; // Obtiene el id del usuario actualmente autenticado        

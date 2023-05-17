@@ -233,6 +233,7 @@ window.addEventListener('DOMContentLoaded', function () {
             if(puntos < 0){
                 puntos = 0;
             }
+            console.log("PUNTOS" + puntos)
             $.ajax({
                     url: '/save-points',
                     type: 'POST',

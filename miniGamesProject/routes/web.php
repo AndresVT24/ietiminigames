@@ -33,7 +33,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get_ranking_game', 'App\Http\Controllers\MatchController@getBestMatchesByIdGame')->name('ranking');
     Route::get('/countTodayMatches', 'App\Http\Controllers\MatchController@countTodayMatches')->name('countMatches');    
     
-    Route::post('/save-points', 'App\Http\Controllers\MatchController@savePoints');
+    Route::post('/save-points', 'App\Http\Controllers\MatchController@savePoints') ->name ('savePoints');
     
     Route::get('/users/{id}', function ($id) {
         $user = App\Models\User::find($id);
