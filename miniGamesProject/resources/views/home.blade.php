@@ -21,6 +21,7 @@
     <h3></h3>
   </div>
   @foreach ($games as $game)
+    @if ($game->status == 1)
     <div class="minigame" id="minigame{{ $game->id }}">
       <a href="{{ route('game', ['game' => $game->id]) }}">
         <div class="descriptionGame"  id="desc{{ $game->id }}">
@@ -31,6 +32,18 @@
         </div>
       </a>
     </div>
+    @else
+    <div class="minigame" id="minigame{{ $game->id }}">
+      <a>
+        <div class="descriptionGame infoDescription"  id="desc{{ $game->id }}">
+          <div>
+            <h1>Juego en mantenimiento</h1>
+            <p>Este juego esta actualmente fuera de servicio ya que esta en mantenimiento, prueba en otro momento.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+    @endif
   @endforeach
   
 
@@ -64,6 +77,9 @@
     color: black;
     text-align:center;
     display:none;
+  }
+  .infoDescription{
+    background-color:rgba(0, 170, 255, 0.9);
   }
   .descriptionGame p{
     padding:20px;
