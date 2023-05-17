@@ -29,7 +29,7 @@ class MatchController extends Controller
             ->leftJoin('users', 'matches.user_id', '=', 'users.id')
             ->where('game_id', $id_game)
             ->orderByDesc('points')
-            ->select('matches.*', 'users.name as user_name')
+            ->select('matches.*', 'users.nick_name as user_name')
             ->take(10)
             ->get();
     

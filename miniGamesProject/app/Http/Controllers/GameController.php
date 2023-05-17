@@ -6,20 +6,19 @@ use Illuminate\Http\Request;
 
 class GameController
 {
-    public function getAllGames()
-    {
+    public function getAllGames(){
         $games = Game::all();
         
         return view('home', ['games' => $games,]);
     }
 
-    public function game(Request $request)
-{
-    $game = Game::findOrFail($request->game);
-    session(['game_name' => $game->name]);
-    session(['game_id' => $game->id]);
-    return view('game');
-}
+    public function game(Request $request){
+        $game = Game::findOrFail($request->game);
+        session(['game_name' => $game->name]);
+        session(['game_id' => $game->id]);
+        session(['game_status' => $game->status]);
+        return view('game');
+    }
 
     public function infoGames(){
         $games= Game::all();

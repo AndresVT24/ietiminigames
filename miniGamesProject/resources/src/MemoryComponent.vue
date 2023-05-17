@@ -87,7 +87,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var puntos = 0;
     let arrayClicksUsuario = []
     let turnoMaquinaActivo = false;
-    var tiempo = 30;
+    var tiempo = 500;
 
     let interval = setInterval(cuentaRegresiva, 1000);
 
@@ -137,7 +137,7 @@ window.addEventListener('DOMContentLoaded', function () {
     // Repite esto para los otros manejadores de eventos 'click'
 
     function turnoMaquina(arrayNumeros) {
-        tiempo = 30;
+        tiempo =500;
         clearInterval(interval);
 
         // Desactiva los clicks del usuario durante el turno de la máquina
@@ -185,6 +185,9 @@ window.addEventListener('DOMContentLoaded', function () {
         for (let i = 0; i < arrayClicksUsuario.length; i++) {
             if (arrayClicksUsuario[i] !== arrayNumeros[i]) {
                 correcto = false;
+                if(puntos < 0){
+                    puntos = 0;
+                }
                 // Si los elementos no son iguales, el usuario se equivocó
                 $.ajax({
                     url: '/save-points',
@@ -227,6 +230,9 @@ window.addEventListener('DOMContentLoaded', function () {
         if (tiempo < 0) {
             clearInterval(interval);
             tiempoRestante.innerHTML = "0";
+            if(puntos < 0){
+                puntos = 0;
+            }
             $.ajax({
                     url: '/save-points',
                     type: 'POST',

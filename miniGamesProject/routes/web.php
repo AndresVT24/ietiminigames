@@ -64,6 +64,5 @@ Route::group(['middleware' => \App\Http\Middleware\AdminMiddleware::class], func
     Route::put('/gameEdit/{id}', [App\Http\Controllers\GameController::class, 'edit'])->name('edit');
     //FIN ADMINPANEL
 });
-/*
-Auth::routes();
-*/
+
+

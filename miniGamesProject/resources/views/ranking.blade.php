@@ -1,3 +1,4 @@
+@if(Auth::user()->status != 0)
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -29,19 +30,35 @@
 <footer-component></footer-component>
 
 </div>
+@else
+<div id="bannedUser">
+<h1>Usuario Baneado</h1>
+<p>Tu usuario esta baneado, si quieres contactar con nosotros envia un correo a <strong>adminietigmaes@gmail.com</strong></p>
+</div>
+@endif
 </body>
 
 <style>
+  #bannedUser{
+    width:fit-content;
+    margin:45vh auto;
+  }
+
+  body{
+    background-color: #6CC4F5;
+  }
+  
   #ranking-page{
     display:grid;
     grid-template-columns: 1fr;
     grid-gap: 20px;
     grid-template-rows:75px 500px;
-    padding: 70px;
+    padding-top: 50px;
+    padding-bottom: 50px;
     background-color: #6CC4F5;
     height: 650px;
     justify-items:center;
-    margin-top:-80px;
+    margin-top:-120px;
   }
 
   #ranking{
@@ -50,7 +67,7 @@
     grid-template-columns: 1fr 20px 1fr;
     height:450px;
     width:50%;
-    background-color:rgba(0,0,0,0.5);
+    background-color:rgba(0,0,0,0.35);
     text-align:center;
     border:15px ridge black;
     border-radius:15px;
@@ -58,8 +75,12 @@
   #nombres{
     grid-column:1;
   }
-  #nombres h2{
+  #ranking-page h1{
     font-size:3rem;
+  }
+  #nombres h2{
+    font-size:2rem;
+    padding:20px;
   }
   #nombres p{
     font-size:1.8rem;
@@ -68,7 +89,8 @@
     grid-column:3;
   }
   #puntuaciones h2{
-    font-size:3rem;
+    font-size:2rem;
+    padding:20px;
   }
   #puntuaciones p{
     font-size:1.8rem;

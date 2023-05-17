@@ -57,6 +57,22 @@
         </button>
     </div>
 </body>
+@else
+<div id="bannedUser">
+<h1>Usuario Baneado</h1>
+<p>Tu usuario esta baneado, si quieres contactar con nosotros envia un correo a <strong>adminietigmaes@gmail.com</strong></p>
+</div>
+@endif
+<style>
+    #bannedUser{
+    width:fit-content;
+    margin:45vh auto;
+  }
+
+  body{
+    background-color: #6CC4F5;
+  }
+</style>
 <script>
     $(document).ready(function (){
         // Función para abrir y cerrar el modal

@@ -71,7 +71,7 @@ $(document).ready(function(){
 
     var puntos = 0;
 
-    var tiempo = 0;
+    var tiempo = 30;
 
     var variablesColores = [{
         "Rojo":"red",
@@ -85,8 +85,8 @@ $(document).ready(function(){
     }]
         
     var variablesOpciones = [{
-        1:"boton con texto:",
-        2:"boton de color:",
+        1:"botón con texto:",
+        2:"botón de color:",
         3:"texto:",
         4:"texto de color:"
     }]
@@ -97,7 +97,7 @@ $(document).ready(function(){
         $('#resultado1').empty();
         $('#resultado2').empty();
 
-        $('#enunciado').text('Porfavor, clica en el ')
+        $('#enunciado').text('Por favor, haz clic en ')
 
         let numeroOpcion = Math.floor(Math.random() * Object.keys(variablesOpciones[0]).length);
         let opcionAleatoria = variablesOpciones[0][Object.keys(variablesOpciones[0])[numeroOpcion]];
@@ -305,6 +305,9 @@ $(document).ready(function(){
         if (tiempo < 0) {
             clearInterval(interval);
             tiempoRestante.innerHTML = "Tiempo: 0";
+            if(puntos < 0){
+                puntos = 0;
+            }
             $.ajax({
                     url: '/save-points',
                     type: 'POST',

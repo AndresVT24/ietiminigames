@@ -14,11 +14,12 @@
             text-align:center;
         }
         #cardLanding{
-            height:40vh;
+            min-height:40vh;
             width:50%;
             padding:20px;
             margin:0 auto;
             margin-top:20vh;
+            margin-bottom:20vh;
             display:grid;
             grid-template-rows:35% 25% 40%;
         }
@@ -53,8 +54,8 @@
             background-color:#1C8E8A;
             display:block;
             position:relative;
-            padding:20px;
-            max-width: 330px;
+            padding:10px;
+            max-width: 280px;
             margin:0 auto;
 
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
