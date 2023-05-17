@@ -58,14 +58,14 @@
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 50px;
-    grid-template-rows:250px 250px;
-    padding: 70px;
+    grid-template-rows: 40px 250px 250px 70px;
+    padding: 0 70px;
     background-color: #6CC4F5;
-    height: 650px;
   }
   .minigame{
     border:2px solid black;
     border-radius:20px;
+    grid-row:2;
   }
   .descriptionGame{
     font-size:calc(0.5rem + 0.7vw);
@@ -85,7 +85,7 @@
     padding:20px;
   }
   #partidas-restantes{
-    position: fixed;
+    position: absolute;
     top: 14%;
     left: 50%;
     transform: translate(-50%, -50%);
