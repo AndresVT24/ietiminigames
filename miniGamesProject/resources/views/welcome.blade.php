@@ -88,7 +88,7 @@
     <body class="bodyIndex">
         <div id="cardLanding">
             <h2 id="titleLanding" class="typewriter">Bienvenido a IetiMinigames, espero que te lo pases bien y disfrutes de esta pagina de minijuegos!</h2>
-            <h4>Para entrar simplemente dale al boton de jugar! Y si te gusta no te olvides de compartir la web!</h4>
+            <h4>¡Para entrar simplemente dale al botón de jugar! ¡Y si te gusta no te olvides de compartir la web!</h4>
             <div id="buttonEntrar">
                 <a href="/login">JUGAR</a>
             </div>
@@ -100,7 +100,7 @@
         typeSpeed: 30
     });
 
-    typewriter.typeString('Bienvenido a IetiMinigames, espero que te lo pases bien y disfrutes de esta pagina de minijuegos!')
+    typewriter.typeString('Bienvenido a IetiMinigames, espero que te lo pases bien y disfrutes de esta página de minijuegos!')
         .start();
     </script>
     </body>

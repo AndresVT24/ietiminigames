@@ -1,48 +1,35 @@
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link href='https://fonts.googleapis.com/css?family=Caesar+Dressing' rel='stylesheet' type='text/css'>
-</head>
-<body class="bodyPerfil">
-    <div id="header">
-        <script>
-            var pagina = 'Perfil';
-        </script>
+@extends('base')
+@section('title', 'Perfil')
 
-        <header-component></header-component>
-
-    </div>
-    <!-- ES EL MODEL QUE SE USA CUANDO QUEREMOS EDITAR LA INFO DE UN USUARIO -->
-    <div class="modal" tabindex="-1" id="btnEdit">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Editar {{Auth::user() -> nick_name}}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btnClose"></button>
-                </div>
-                <div class="modal-body">
-                    <form class="form-floating row g-3" id="formEditUser" method="post">
-                        <!-- AQUI SE AÑADE CON JQUERY LA INFO DEL USUARIO QUE QUEREMOS EDITAR -->
-                        @csrf
-                        @method('PUT')
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Close</button>
-                    <button type="submit" class="btn btn-primary" id="btnSave">Save changes</button>
-                </div>
+@section('content')
+    <style>
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+    </style>
+    <!-- MODAL -->
+    <div id="modal" class="fixed top-0 left-0 w-full h-full flex items-center justify-center overlay hidden">
+        <div class="bg-white w-1/2 p-8 border rounded">
+            <h2 class="text-lg font-bold mb-4">Editar {{Auth::user() -> nick_name}}</h2>
+            <form id="formEditUser" method="post">
+                @method('PUT')
+                @csrf
+            </form>
+            <div class="flex justify-center mt-5">
+                <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mr-2 rounded" id="btnClose">
+                    Cerrar
+                </button>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="btnSave">
+                    Guardar
+                </button>
             </div>
         </div>
     </div>
-<!-- FIN DEL MODEL -->
+
+    <!-- FIN DEL MODEL -->
     <div class="divInfoPerfil">
         <div class="divImagePerfil">
-            <img src="https://img.freepik.com/vector-premium/perfil-avatar-hombre-icono-redondo_24640-14044.jpg?w=740" alt="" width="250" height="250">
+            <img src="/img/avatar.avif" alt="" width="250" height="250" class="imgUser">
         </div>
         <div class="divNickPerfil">
             <p class="pNick">{{ Auth::user()->nick_name }}</p>
@@ -50,9 +37,6 @@
         <div class="divNamePerfil rows col">
             <p>Nombre</p>
             <p class="pName">{{ Auth::user()->name }}</p>
-        </div>
-        <div>
-            <button class="btn btn-lg btn-primary btn-edit" type="button" data-id='{{ Auth::user()->id }}' data-bs-target="#btnEdit" data-bs-toggle="modal">EDITAR</button>
         </div>
         <div class="divLastNamePerfil rows col">
             <p>Apellido</p>
@@ -66,79 +50,122 @@
             <p>Contraseña</p>
             <p class="pPassword">*********</p>
         </div>
-        <div class="divPasswordPerfil rows">
-            <p>Contraseña</p>
-            <p class="pPassword">*********</p>
-        </div>
     </div>
-    <div id="footer">
-        <footer-component></footer-component>
-
+    <div class="flex items-center justify-center mt-5">
+        <button id="modalButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn-edit" type="button" data-id='{{ Auth::user()->id }}'>
+            Editar Perfil
+        </button>
     </div>
 </body>
 <script>
     $(document).ready(function (){
+        // Función para abrir y cerrar el modal
+        function toggleModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function getInfoUser(idValor){
+            $.ajax({
+                url: 'userFindProfile/' + idValor ,
+                type: 'GET',
+                success: function(data){
+                    var rol= data.userInfo['rol']
+                    if(rol==1 || rol==2){
+                        $('.divNickPerfil').css({
+                            'color': 'gold',
+                            'text-shadow': '0 0 10px black',
+                            'font-family': 'Caesar Dressing'
+                        })
+
+                        $('.divImagePerfil > img').css({
+                            'box-shadow': '0 0 50px gold'
+                        })
+                    }
+                    data= data.userInfo
+                    arrayAvoid= ["id", "updated_at", "created_at", "status", "email_verified_at", "rol"]
+                    arrayNotAvaliable= ['email', 'nick_name']
+                    $.each(data, function(index, user) {
+                        if($.inArray(index, arrayAvoid) == -1){
+                            if($.inArray(index, arrayNotAvaliable) !== -1){
+                                $("#formEditUser").append('<div class="sm:col-span-4 mb-4"> <label for="input'+index+'" class="block text-sm font-medium leading-6 text-gray-900">'+index+'</label><div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"> <input type="text" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" id="input'+index+'" value="'+user+'" name="'+index+'" disabled></div></div>')
+                            }
+                            else{
+                                $("#formEditUser").append('<div class="sm:col-span-4 mb-4"> <label for="input'+index+'" class="block text-sm font-medium leading-6 text-gray-900">'+index+'</label><div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"> <input type="text" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" id="input'+index+'" value="'+user+'" name="'+index+'"></div></div>')
+
+                            }
+                        }
+                    });
+                }
+                ,
+                error: function (xhr) {
+                    alert('Ha ocurrido un error al cargar los datos del usuario.');
+                }
+            });
+        }
+
+        function setStatuStyle(idValor){
+            $.ajax({
+                url: 'userFind/' + idValor ,
+                type: 'GET',
+                success: function(data){
+                    var rol= data.userInfo['rol']
+                    if(rol==1 || rol==2){
+                        $('.divNickPerfil').css({
+                            'color': 'gold',
+                            'text-shadow': '0 0 10px black',
+                            'font-family': 'Caesar Dressing'
+                        })
+
+                        $('.divImagePerfil > img').css({
+                            'box-shadow': '0 0 50px gold'
+                        })
+                    }
+                }
+                ,
+                error: function (xhr) {
+                    alert('Ha ocurrido un error al cargar los datos del usuario.');
+                }
+            });
+        }
+
+        $("#titulo").text("PERFIL")
+
         //INDENTIFICACION SI ES PREMIUM
         var idValor = $(".btn-edit").attr("data-id");
-        console.log(idValor)
-        
-        $.ajax({
-            url: 'userFind/' + idValor ,
-            type: 'GET',
-            success: function(data){
-                status= data.userInfo['status']
-                if(status==1){
-                    $('.divNickPerfil').css({
-                        'color': 'gold',
-                        'text-shadow': '0 0 10px black',
-                        'font-family': 'Caesar Dressing'
-                    })
 
-                    $('.divImagePerfil > img').css({
-                        'box-shadow': '0 0 50px gold'
-                    })
-                }
-            }
-            ,
-            error: function (xhr) {
-                alert('Ha ocurrido un error al cargar los datos del usuario.');
-            }
-        });
-
-        //BORRA DEL DOM LOS DATOS QUE SE ENSEÑA EN EL FORM
-        $(".btn-edit").click(function (){
-                $("#formEditUser").empty()
-            })
+        //CAMBIAR EL ESTILO SEGUN EL STATUS
+        // setStatuStyle(idValor)
 
         //OBTENER DATOS DEL USUARIO PARA EL FORMULARIO
-        $(document).on('click', '.btn-edit', function () {
-                var userId = $(this).data('id');
-                console.log(userId)
-                $.ajax({
-                    url: 'userFind/' + userId ,
-                    type: 'GET',
-                    success: function(data){
-                        console.log(data)
-                        data= data.userInfo
-                        arrayAvoid= ["id", "updated_at", "created_at", "status", "email_verified_at", "rol"]
-                        arrayNotAvaliable= ['email', 'nick_name']
-                        $.each(data, function(index, user) {
-                            if($.inArray(index, arrayAvoid) == -1){
-                                if($.inArray(index, arrayNotAvaliable) !== -1){
-                                    $("#formEditUser").append('<div class="col-md-6"> <label for="input'+index+'" class="form-label">'+index+'</label> <input type="text" class="form-control" id="input'+index+'" value="'+user+'" name="'+index+'" disabled> </div>')
-                                }
-                                else{
-                                    $("#formEditUser").append('<div class="col-md-6"> <label for="input'+index+'" class="form-label">'+index+'</label> <input type="text" class="form-control" id="input'+index+'" value="'+user+'" name="'+index+'"> </div>')
+        getInfoUser(idValor)
 
-                                }
-                            }
-                        });
-                    }
-                    ,
-                    error: function (xhr) {
-                        alert('Ha ocurrido un error al cargar los datos del usuario.');
-                    }
-                });
-            });
+        //GUARDA LOS CAMBIOS QUE SE HAYAN HECHO EN EL USUARIO
+        $("#btnSave").click(function (e) {
+            e.preventDefault();
+            var datosFormulario = $('#formEditUser').serialize();
+            console.log(datosFormulario)
+            $.ajax({
+                url: "/userEditPerfil/" + idValor,
+                method: 'PUT',
+                data: datosFormulario,
+                success: function(response) {
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                }
+            })
+        })
+
+        // Evento abrir modal o Cerrar Modal
+        $("#modalButton").click(function (){
+            toggleModal()
+        })
+
+        $("#btnClose").click(function (){
+            toggleModal()
+        })
     })
 </script>
+@endsection

@@ -1,34 +1,38 @@
 <template>
-  <div id="container-header">
-    <!-- <a href="/perfil">
-      <img id="logoUsuario" src="../img/user-logo.jpg" alt="Foto del usuario">
-    </a> -->
-
-    <a href="/home"><img id="logoHeader" src="../img/logo_ieti.png" alt=""></a>
-    <h1 id="tituloHeader"></h1>
-    <div id="userInfo">
-      <img id="logoUsuario" src="../img/user-logo.jpg" alt="">
-      <h2 id="userName"></h2>
+  <div class="container mx-auto flex items-center justify-between px-4">
+      <div class="flex items-center">
+        <a href="/home">
+          <img src="../img/logo_ieti.png" alt="Logo y Redirección a Menu Principal" class="w-20 h-20">
+        </a>
+        <h1 class="ml-2 text-2xl font-bold" id="titulo"></h1>
+      </div>
+      <div class="relative">
+        <div class="flex items-center cursor-pointer dropdown-container">
+          <span class="ml-2 font-medium mr-3" id="nickUser"></span>
+          <img src="ruta/a/la/foto-de-usuario.jpg" alt="Foto de usuario" class="w-20 h-20 rounded-full imgUser">
+        </div>
+        <div class="absolute right-0 mt-2 bg-white text-gray-800 rounded-lg shadow-md p-2 dropdown-menu">
+          <div class="mb-2">
+            <a href="/home" class="block px-4 py-2 hover:bg-blue-100 rounded">Menú Principal</a>
+          </div>
+          <div class="mb-2">
+            <a href="/perfil" class="block px-4 py-2 hover:bg-blue-100 rounded">Perfil</a>
+          </div>
+          <div>
+            <a href="/logout" class="block px-4 py-2 hover:bg-blue-100 rounded" id="logoutLink">Cerrar sesión</a>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="lastRow">
-      <a id="profileLink" class="navHeader" style="display: none;" href="/perfil">Profile</a>
-      <a id="logoutLink" class="navHeader" style="display: none;">Log Out</a>
-    </div>
-  </div>
 </template>
-  
 
 <script setup>
 $(document).ready(function(){
-  var navItems = document.querySelectorAll(".navHeader");
-    userInfo.addEventListener("click", function() {
-    navItems.forEach(element => {
-      if(element.style.display == "grid"){
-        element.style.display = "none";
-      }else{
-        element.style.display = "grid";
-      }
-    });
+  $(".dropdown-menu").toggle()
+
+  $('.dropdown-container').click(function (event) {
+    $(".dropdown-menu").toggle()
+    
   });
 
   $('#logoutLink').click(function(e) {
@@ -40,120 +44,10 @@ $(document).ready(function(){
     });
   });
 
-  $('#tituloHeader').text(pagina);
-  var usuario = localStorage.getItem("usuario");
-  $('#userName').text(usuario);
+  $(document).click(function (event) {
+      if (!$(event.target).closest('.dropdown-container').length) {
+        $('.dropdown-container').removeClass('open');
+      }
+    });
 })
 </script>
-<style>
-*{
-  margin: 0;
-  padding: 0;
-}
-#container-header{
-  display: grid;
-  grid-template-columns: 200px 1fr 200px;
-  grid-template-rows: 100px 80px;
-  background-color: #1C8E8A;
-  text-align: center;
-}
-#tituloHeader{
-  grid-row: 1/2;
-  grid-column: 2/3;
-  justify-self: center;
-  align-self: center;
-}
-#logoHeader{
-  grid-row: 1/2;
-  grid-column: 1/2;
-  height: 100%;
-  justify-self: center;
-  margin-top: -7px;
-}
-
-#lastRow{
-  background-color: #6CC4F5;
-  grid-column: 1/4;
-  display: grid;
-  grid-template-columns: 1fr 200px;
-  grid-template-rows: 40px 40px;
-}
-
-#userInfo{
-  grid-row: 1/2;
-  grid-column: 3/4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  text-align: start;
-  box-sizing: border-box;
-  text-align: center;
-  cursor: pointer;
-}
-
-#logoUsuario{
-  grid-row: 1;
-  grid-column: 1;
-  height: 72px;
-  border-radius: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-#userName{
-  grid-row: 2;
-  grid-column: 1;
-  width: 200px;
-}
-
-#tituloHeader{
-  grid-row: 1/2;
-  grid-column: 2/3;
-  font-size: 28px;
-}
-#profileLink{
-  display: none;
-  justify-self: center;
-  width: 68%;
-  height: 17px;
-  grid-column: 2;
-  grid-row: 1;
-  padding: 10px;
-  background-color: #ffffff3a;
-  border: 2px solid rgba(255, 255, 255, 0.301);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.212);
-  z-index: 1;
-  color: black;
-}
-
-#logoutLink {
-  display: none;
-  justify-self: center;
-  width: 68%;
-  height: 17px;
-  grid-column: 2;
-  grid-row: 2;
-  padding: 10px;
-  background-color: #ffffff3a;
-  border: 2px solid rgba(255, 255, 255, 0.301);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.212);
-  border-radius: 0 0 5px 5px;
-  z-index: 1;
-  color: black;
-}
-
-#logoutLink::before {
-  display: grid;
-  grid-column: 3/4;
-  top: -10px;
-  left: 50%;
-  width: 20px;
-  height: 20px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-</style>

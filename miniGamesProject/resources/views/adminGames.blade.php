@@ -24,8 +24,8 @@
         </form>
         </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Close</button>
-                <button type="submit" class="btn btn-primary" id="btnSave">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Cerrar</button>
+                <button type="submit" class="btn btn-primary" id="btnSave">Guardar Cambios</button>
             </div>
         </div>
     </div>
@@ -54,7 +54,6 @@
                         <td>{{$game->updated_at}}</td>
                         <td>
                             <button type="button" class="btn btn-sm btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#editGame" data-id= '{{$game->id}}'>Editar</button>
-                            <button type="button" class='btn btn-sm btn-danger btn-delete' data-id= '{{$game->id}}' + >Borrar</button>
                         </td>
                     </tr>
                 @endforeach
@@ -143,10 +142,14 @@
             $("#btnSave").click(function (e) {
                 e.preventDefault();
                 var datosFormulario = $('#formEditGame').serialize();
+                console.log(datosFormulario)
                 $.ajax({
                     url: "/gameEdit/" + gameId,
                     method: 'PUT',
                     data: datosFormulario,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     success: function(response) {
                         location.reload();
                     },

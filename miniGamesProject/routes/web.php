@@ -35,15 +35,21 @@ Route::middleware(['auth'])->group(function () {
     
     Route::post('/save-points', 'App\Http\Controllers\MatchController@savePoints');
     
-    Route::get('/session', function () {
-        return session()->all();
-    });
-    
     Route::get('/users/{id}', function ($id) {
         $user = App\Models\User::find($id);
         return $user;
     });
 
+    //PERFIL
+    Route::get('/userFindProfile/{id}', [App\Http\Controllers\UserController::class, 'findUserProfile'])->name('findUserProfile');
+    Route::put('/userEditPerfil/{id}', [App\Http\Controllers\UserController::class, 'editPerfil'])->name('editPerfil');
+
+    //PERFIL DE USUARIOS
+    Route::get('/perfil/{nick_name}',  [App\Http\Controllers\PerfilController::class, 'show'])->name('show');
+
+});
+
+Route::group(['middleware' => \App\Http\Middleware\AdminMiddleware::class], function () {
     //ADMINPANEL
     //USERS
     Route::get('/admin', [App\Http\Controllers\UserController::class, 'infoUsers'])->name('admin');
@@ -57,8 +63,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/gameFind/{id}', [App\Http\Controllers\GameController::class, 'findGame'])->name('findGame');
     Route::put('/gameEdit/{id}', [App\Http\Controllers\GameController::class, 'edit'])->name('edit');
     //FIN ADMINPANEL
-
-    Route::get('/userFind/{id}', [App\Http\Controllers\UserController::class, 'findUser'])->name('findUser');
 });
 /*
 Auth::routes();
