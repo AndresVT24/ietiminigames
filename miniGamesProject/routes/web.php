@@ -60,6 +60,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/userFind/{id}', [App\Http\Controllers\UserController::class, 'findUser'])->name('findUser');
 });
-/*
-Auth::routes();
-*/
+
+

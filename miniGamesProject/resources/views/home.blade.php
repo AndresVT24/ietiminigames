@@ -1,6 +1,8 @@
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 {{session(['nickname' => Auth::user()->nick_name]);}}
+{{session(['rol' => Auth::user()->rol]);}}
 {{session(['idUser' => Auth::user()->id]);}}
+@if(Auth::user()->status != 0)
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
@@ -10,6 +12,7 @@
   <script>
      var pagina = 'Menú de Juegos';
      localStorage.setItem("usuario", '{{ session('nickname') }}');
+     localStorage.setItem("rol", '{{ session('rol') }}');
      localStorage.setItem("id_usuario", '{{ session('idUser') }}');
   </script>
 
@@ -52,8 +55,22 @@
 <footer-component></footer-component>
 
 </div>
-
+@else
+<div id="bannedUser">
+<h1>Usuario Baneado</h1>
+<p>Tu usuario esta baneado, si quieres contactar con nosotros envia un correo a <strong>adminietigmaes@gmail.com</strong></p>
+</div>
+@endif
 <style>
+  #bannedUser{
+    width:fit-content;
+    margin:45vh auto;
+  }
+
+  body{
+    background-color: #6CC4F5;
+  }
+  
   #home-page{
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -140,10 +157,11 @@
         $('#partidas-restantes').css('display','none')
       }else{
         $('#partidas-restantes h3').text('Partidas Jugadas: '+data+'/5')
-        $('.minigame a').click(function(event){
+
+        if(data >= 5){
+          $('.minigame a').click(function(event){
           event.preventDefault();
         })
-        if(data >= 5){
           $('.descriptionGame').css('backgroundColor','rgba(255, 0, 0, 0.9)')
           $('.descriptionGame div h1').text('No Disp.');
           $('.descriptionGame div p').text('Vaya... Parece ser que has llegado al límite de partidas diario, si quieres seguir jugando conviértete en VIP por tan solo 2€ y juega todas las partidas que quieras.');

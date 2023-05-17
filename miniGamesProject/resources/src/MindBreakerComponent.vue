@@ -305,6 +305,9 @@ $(document).ready(function(){
         if (tiempo < 0) {
             clearInterval(interval);
             tiempoRestante.innerHTML = "Tiempo: 0";
+            if(puntos < 0){
+                puntos = 0;
+            }
             $.ajax({
                     url: '/save-points',
                     type: 'POST',

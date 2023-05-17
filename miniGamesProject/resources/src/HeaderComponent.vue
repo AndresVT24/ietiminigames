@@ -12,6 +12,7 @@
     </div>
     <div id="lastRow">
       <a id="profileLink" class="navHeader" style="display: none;" href="/perfil">Perfil</a>
+      <a id="adminLink" class="navHeader" style="display: none;" href="/admin">Admin</a>
       <a id="logoutLink" class="navHeader" style="display: none;">Salir</a>
     </div>
   </div>
@@ -29,6 +30,11 @@ $(document).ready(function(){
         element.style.display = "grid";
       }
     });
+    if(rol != '2'){
+      $('#logoutLink').css('grid-row','2')
+      console.log(rol)
+      $('#adminLink').css('display','none')
+    }
   });
 
   $('#logoutLink').click(function(e) {
@@ -42,7 +48,9 @@ $(document).ready(function(){
 
   $('#tituloHeader').text(pagina);
   var usuario = localStorage.getItem("usuario");
+  var rol = localStorage.getItem("rol");
   $('#userName').text(usuario);
+  
 })
 </script>
 <style>
@@ -53,10 +61,12 @@ $(document).ready(function(){
 #container-header{
   display: grid;
   grid-template-columns: 200px 1fr 200px;
-  grid-template-rows: 100px 80px;
+  grid-template-rows: 100px 120px;
   background-color: #1C8E8A;
   text-align: center;
+  z-index: 1;
 }
+
 #tituloHeader{
   grid-row: 1/2;
   grid-column: 2/3;
@@ -76,7 +86,7 @@ $(document).ready(function(){
   grid-column: 1/4;
   display: grid;
   grid-template-columns: 1fr 200px;
-  grid-template-rows: 40px 40px;
+  grid-template-rows: 40px 40px 40px;
 }
 
 #userInfo{
@@ -121,29 +131,32 @@ $(document).ready(function(){
   height: 17px;
   grid-column: 2;
   grid-row: 1;
-  padding: 10px;
-  background-color: #ffffff3a;
-  border: 2px solid rgba(255, 255, 255, 0.301);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.212);
-  z-index: 1;
-  color: black;
 }
-
-#logoutLink {
+.navHeader{
+  text-decoration: none;
   display: none;
-  justify-self: center;
-  width: 68%;
-  height: 17px;
-  grid-column: 2;
-  grid-row: 2;
   padding: 10px;
   background-color: #ffffff3a;
   border: 2px solid rgba(255, 255, 255, 0.301);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.212);
-  border-radius: 0 0 5px 5px;
   z-index: 1;
   color: black;
   cursor: pointer;
+  width: 68%;
+  height: 17px;
+  justify-self: center;
+}
+
+#logoutLink {
+  grid-column: 2;
+  grid-row: 3;
+  border-radius: 0 0 5px 5px;
+}
+
+#adminLink{
+  grid-column: 2;
+  grid-row: 2;
+  border-radius: 0;
 }
 
 #logoutLink::before {

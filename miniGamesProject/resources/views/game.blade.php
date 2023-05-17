@@ -1,3 +1,4 @@
+@if(Auth::user()->status != 0)
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -49,8 +50,22 @@
 
 </div>
 </body>
-
+@else
+<div id="bannedUser">
+<h1>Usuario Baneado</h1>
+<p>Tu usuario esta baneado, si quieres contactar con nosotros envia un correo a <strong>adminietigmaes@gmail.com</strong></p>
+</div>
+@endif
 <style>
+  #bannedUser{
+    width:fit-content;
+    margin:45vh auto;
+  }
+
+  body{
+    background-color: #6CC4F5;
+  }
+  
   #finish-screen{
     background-color: #ffffffb3;
     width: 45%;
@@ -116,7 +131,7 @@
     grid-template-rows: 80px auto 80px;
     background-color: #6CC4F5;
     min-height: 730px;
-    margin-top: -80px;
+    margin-top: -120px;
   }
   #game-screen{
     grid-row:2;

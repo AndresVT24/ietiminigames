@@ -185,6 +185,9 @@ window.addEventListener('DOMContentLoaded', function () {
         for (let i = 0; i < arrayClicksUsuario.length; i++) {
             if (arrayClicksUsuario[i] !== arrayNumeros[i]) {
                 correcto = false;
+                if(puntos < 0){
+                    puntos = 0;
+                }
                 // Si los elementos no son iguales, el usuario se equivocó
                 $.ajax({
                     url: '/save-points',
@@ -227,6 +230,9 @@ window.addEventListener('DOMContentLoaded', function () {
         if (tiempo < 0) {
             clearInterval(interval);
             tiempoRestante.innerHTML = "0";
+            if(puntos < 0){
+                puntos = 0;
+            }
             $.ajax({
                     url: '/save-points',
                     type: 'POST',
