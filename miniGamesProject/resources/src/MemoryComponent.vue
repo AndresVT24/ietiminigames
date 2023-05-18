@@ -87,7 +87,7 @@ window.addEventListener('DOMContentLoaded', function () {
     var puntos = 0;
     let arrayClicksUsuario = []
     let turnoMaquinaActivo = false;
-    var tiempo = 500;
+    var tiempo = 30;
 
     let interval = setInterval(cuentaRegresiva, 1000);
 
@@ -137,7 +137,7 @@ window.addEventListener('DOMContentLoaded', function () {
     // Repite esto para los otros manejadores de eventos 'click'
 
     function turnoMaquina(arrayNumeros) {
-        tiempo =500;
+        tiempo =30;
         clearInterval(interval);
 
         // Desactiva los clicks del usuario durante el turno de la máquina
@@ -211,7 +211,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }
         if(correcto){
             puntos += arrayNumeros.length * 10 + 1 // Sumamos puntuacion al hacer bien la secuencia
-
+            $('#puntuacion-actual').text('Puntos: '+puntos)
             // Si llegamos hasta aquí, los arrays son iguales
             if (arrayClicksUsuario.length === arrayNumeros.length) {
                 console.log(puntos)

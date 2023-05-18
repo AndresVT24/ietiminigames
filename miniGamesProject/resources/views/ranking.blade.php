@@ -30,14 +30,13 @@
   body{
     background-color: #6CC4F5;
   }
-  
+  html{
+    background-color: #6CC4F5;
+  }
   #ranking-page{
     display:grid;
     grid-template-columns: 1fr;
-    grid-gap: 20px;
-    grid-template-rows:75px 500px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    grid-template-rows:75px auto;
     background-color: #6CC4F5;
     justify-items:center;
   }
@@ -46,18 +45,20 @@
     justify-items:center;
     display:grid;
     grid-template-columns: 1fr 20px 1fr;
-    height:450px;
+    min-height: 450px;
     width:50%;
     background-color:rgba(0,0,0,0.35);
     text-align:center;
     border:15px ridge black;
     border-radius:15px;
+    padding:20px;
   }
   #nombres{
     grid-column:1;
   }
   #ranking-page h1{
     font-size:3rem;
+    margin-top: 20px;
   }
   #nombres h2{
     font-size:2rem;

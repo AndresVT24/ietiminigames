@@ -66,7 +66,6 @@
                         <td>{{$user->updated_at}}</td>
                         <td>
                             <button type="button" class="btn btn-sm btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#editUser" data-id= '{{$user->id}}'>Editar</button>
-                            <button type="button" class='btn btn-sm btn-danger btn-delete' data-id= '{{$user->id}}' + >Borrar</button>
                         </td>
                     </tr>
                     @endforeach
