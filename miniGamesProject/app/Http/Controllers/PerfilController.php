@@ -16,7 +16,7 @@ class PerfilController extends Controller
     }
 
     // Verificar el estado del usuario
-    $isPremium = $user->status == 1 || $user->status == 2;
+    $isPremium = $user->rol == 1 || $user->rol == 2;
 
     // Renderizar la vista con la información del usuario y el estado
     return view('perfil.show', ['user' => $user, 'isPremium' => $isPremium]);

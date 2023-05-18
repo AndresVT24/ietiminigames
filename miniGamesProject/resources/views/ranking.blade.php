@@ -1,34 +1,22 @@
+@extends('base')
+@section('title', 'Ranking')
+
+@section('content')
+
 @if(Auth::user()->status != 0)
-@vite(['resources/css/app.css', 'resources/js/app.js'])
-<head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
-</head>
-<body>
 @php
   $route = route('ranking', ['game' => session('game_id')]);
 @endphp
-<div id="header">
-  <script>
-     var pagina = "Ranking "+"<?php echo session('game_name') ?>";
-  </script>
-
-  <header-component></header-component>
-</div>
 <div id="ranking-page">
-  <h1>Las 10 mejores partidas en <?php echo session('game_name') ?>!</h1>
+  <h1 class="ml-2 text-2xl  md:text-3xl lg:text-4xl font-bold">¡Las 10 mejores partidas en <?php echo session('game_name') ?>!</h1>
   <div id="ranking">
     <div id="nombres">
-      <h2>Usuarios</h2>
+      <h2 class="ml-2 text-2xl font-bold border-b">Usuarios</h2>
     </div>
     <div id="puntuaciones">
-      <h2>Puntuaciones</h2>
+      <h2 class="ml-2 text-2xl font-bold border-b">Puntuaciones</h2>
     </div>
   </div>
-</div>
-<div id="footer">
-<footer-component></footer-component>
-
 </div>
 @else
 <div id="bannedUser">
@@ -39,11 +27,6 @@
 </body>
 
 <style>
-  #bannedUser{
-    width:fit-content;
-    margin:45vh auto;
-  }
-
   body{
     background-color: #6CC4F5;
   }
@@ -56,9 +39,7 @@
     padding-top: 50px;
     padding-bottom: 50px;
     background-color: #6CC4F5;
-    height: 650px;
     justify-items:center;
-    margin-top:-120px;
   }
 
   #ranking{
@@ -100,15 +81,18 @@
  
 </style>
 <script>
-  // hacer una petición AJAX a la ruta para obtener los datos del ranking
-  $.get("{{$route}}", function(data) {
-    // data será un arreglo JSON con los datos del ranking
-    data.forEach(function(match) {
-      // para cada partido, crear un div con los datos que deseas mostrar
-      $($('#nombres').append($('<p>').text(match.user_name)));
-      $($('#puntuaciones').append($('<p>').text(match.points)));
+  $(document).ready(function (){
+    $("#titulo").text("RANKING")
+
+    // hacer una petición AJAX a la ruta para obtener los datos del ranking
+    $.get("{{$route}}", function(data) {
+      // data será un arreglo JSON con los datos del ranking
+      data.forEach(function(match) {
+        // para cada partido, crear un div con los datos que deseas mostrar
+        $($('#nombres').append($('<p>').text(match.user_name)));
+        $($('#puntuaciones').append($('<p>').text(match.points)));
+      });
     });
-  });
+  })
 </script>
-
-
+@endsection

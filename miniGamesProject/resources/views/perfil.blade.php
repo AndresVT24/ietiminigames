@@ -61,15 +61,10 @@
 @else
 <div id="bannedUser">
 <h1>Usuario Baneado</h1>
-<p>Tu usuario esta baneado, si quieres contactar con nosotros envia un correo a <strong>adminietigmaes@gmail.com</strong></p>
+<p>Tu usuario está baneado, si quieres contactar con nosotros envia un correo a <strong>adminietigmaes@gmail.com</strong></p>
 </div>
 @endif
 <style>
-    #bannedUser{
-    width:fit-content;
-    margin:45vh auto;
-  }
-
   body{
     background-color: #6CC4F5;
   }
@@ -150,9 +145,6 @@
 
         //INDENTIFICACION SI ES PREMIUM
         var idValor = $(".btn-edit").attr("data-id");
-
-        //CAMBIAR EL ESTILO SEGUN EL STATUS
-        // setStatuStyle(idValor)
 
         //OBTENER DATOS DEL USUARIO PARA EL FORMULARIO
         getInfoUser(idValor)

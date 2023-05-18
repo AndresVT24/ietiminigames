@@ -4,7 +4,10 @@
         <a href="/home">
           <img src="../img/logo_ieti.png" alt="Logo y Redirección a Menu Principal" class="w-20 h-20">
         </a>
-        <h1 class="ml-2 text-2xl font-bold" id="titulo"></h1>
+        <h1 class="ml-2 text-1xl font-bold">Ieti Minigames</h1>
+      </div>
+      <div id="titulo" class="ml-2 text-2xl font-bold">
+        
       </div>
       <div class="relative">
         <div class="flex items-center cursor-pointer dropdown-container">
@@ -51,3 +54,11 @@ $(document).ready(function(){
     });
 })
 </script>
+
+<style>
+#titulo{
+  position: absolute;
+  transform: translateX(-50%);
+  left: 50%;
+}
+</style>

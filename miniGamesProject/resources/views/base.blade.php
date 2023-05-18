@@ -41,5 +41,21 @@
 				}
 			})
 		</script>
+		<style>
+			#bannedUser{
+				width: 100% !important;
+				background-color: rgba(0, 0, 0, 0.6) !important;
+				height: 70vh !important;
+				display: flex !important;
+				justify-content: center !important;
+				align-items: center !important;
+				flex-direction:column
+			}
+
+			#bannedUser h1{
+				font-size: revert;
+    			font-weight: 700;
+			}
+		</style>
 	</body>
 </html>

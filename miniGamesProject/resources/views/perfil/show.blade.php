@@ -92,7 +92,6 @@
 <script>
     $(document).ready(function () {
       $("#titulo").text("PERFIL")
-
     });
   </script>
   @endsection

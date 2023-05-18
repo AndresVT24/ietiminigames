@@ -221,8 +221,8 @@ window.addEventListener('DOMContentLoaded', function () {
                 turnoMaquina(arrayNumeros);
             }
         }
-        
     }
+    
     function cuentaRegresiva() {
         const tiempoRestante = document.getElementById('tiempo-restante');
         tiempoRestante.innerHTML = tiempo;

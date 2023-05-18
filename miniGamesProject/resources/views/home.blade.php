@@ -6,10 +6,10 @@
 {{session(['rol' => Auth::user()->rol]);}}
 {{session(['idUser' => Auth::user()->id]);}}
 @if(Auth::user()->status != 0)
-<div id="home-page">
-  <div id="partidas-restantes">
+<div id="partidas-restantes">
     <h3></h3>
-  </div>
+</div>
+<div id="home-page">
   @foreach ($games as $game)
     @if ($game->status == 1)
     <div class="minigame" id="minigame{{ $game->id }}">
@@ -38,15 +38,11 @@
 </div>
 @else
 <div id="bannedUser">
-<h1>Usuario Baneado</h1>
-<p>Tu usuario esta baneado, si quieres contactar con nosotros envia un correo a <strong>adminietigmaes@gmail.com</strong></p>
+  <h1>Usuario Baneado</h1>
+  <p>Tu usuario está baneado, si quieres contactar con nosotros envía un correo a <strong>adminietigmaes@gmail.com</strong></p>
 </div>
 @endif
 <style>
-  #bannedUser{
-    width:fit-content;
-    margin:45vh auto;
-  }
 
   body{
     background-color: #6CC4F5;
@@ -56,14 +52,14 @@
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 50px;
-    grid-template-rows: 40px 250px 250px 70px;
+    grid-template-rows: 250px 250px;
     padding: 0 70px;
-    background-color: #6CC4F5;
+    margin-top:20px
   }
   .minigame{
     border:2px solid black;
     border-radius:20px;
-    grid-row:2;
+    grid-row:1;
   }
   .descriptionGame{
     font-size:calc(0.5rem + 0.7vw);
@@ -83,10 +79,11 @@
     padding:20px;
   }
   #partidas-restantes{
-    position: absolute;
-    top: 14%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    margin: 20px 40%;
+    border-radius: 10px 0;
   }
   #partidas-restantes h3{
     font-size: calc(0.8rem + 0.7vw);
@@ -119,7 +116,7 @@
 </style>
 <script>
   $(document).ready(function() {
-    $("#titulo").text("MENU PRINCIPAL")
+    $("#titulo").text("MENÚ PRINCIPAL")
 
     $(".minigame").hover(
       function() {

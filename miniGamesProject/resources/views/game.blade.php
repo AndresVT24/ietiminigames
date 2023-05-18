@@ -27,7 +27,7 @@
  </div>
  <div id="losed-game">
     <div id="finish-screen">
-        <p id="puntuacion-final">Puntuacion final: </p>
+        <p id="puntuacion-final">Puntuación final: </p>
         <p id="partidas-restantes"></p>
         <a id="boton-siguiente-pagina" onclick="goToRanking()">Mostrar rankings</a>
         <a id="boton-menu-inicial" href="/home">Menú inicial</a>
@@ -43,11 +43,6 @@
 </div>
 @endif
 <style>
-  #bannedUser{
-    width:fit-content;
-    margin:45vh auto;
-  }
-
   body{
     background-color: #6CC4F5;
   }
@@ -155,6 +150,7 @@
   }
   
   $(document).ready(function() {
+    $("#titulo").text(pagina)
     
   $("#minigame1").hover(
     function() {
